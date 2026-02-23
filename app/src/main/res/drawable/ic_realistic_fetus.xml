@@ -1,0 +1,75 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="300dp"
+    android:height="300dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Outer Glow / Womb Environment -->
+    <path android:pathData="M50,10A40,40 0,1 0,50,90A40,40 0,1 0,50,10Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="50"
+                android:centerY="50"
+                android:gradientRadius="40"
+                android:type="radial">
+                <item android:color="#22FFFFFF" android:offset="0.0" />
+                <item android:color="#00FFFFFF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Transparent Bubble / Sac -->
+    <path
+        android:pathData="M50,15A35,35 0,1 0,50,85A35,35 0,1 0,50,15Z"
+        android:strokeWidth="0.5"
+        android:strokeColor="#44FFFFFF" />
+
+    <!-- Realistic Fetus Shape (Stylized but detailed) -->
+    <!-- Head -->
+    <path android:pathData="M60,35c3,-5 10,-5 13,0c2,3 2,8 0,11c-3,3 -8,3 -11,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="65"
+                android:centerY="38"
+                android:gradientRadius="10"
+                android:type="radial">
+                <item android:color="#FFE0B2" android:offset="0.0" />
+                <item android:color="#FFB085" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Body / Torso (Curved) -->
+    <path android:pathData="M62,45c5,10 0,25 -15,30c-15,5 -25,-5 -25,-15c0,-10 10,-15 15,-12c5,3 10,10 15,10">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="30"
+                android:startY="60"
+                android:endX="65"
+                android:endY="45"
+                android:type="linear">
+                <item android:color="#FFB085" android:offset="0.0" />
+                <item android:color="#FFE0B2" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Legs (Tucked) -->
+    <path android:pathData="M35,75c-5,-2 -8,-10 -5,-15c3,-5 10,-3 12,2">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="35"
+                android:centerY="70"
+                android:gradientRadius="8"
+                android:type="radial">
+                <item android:color="#FFE0B2" android:offset="0.0" />
+                <item android:color="#FFB085" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Highlight for volume -->
+    <path android:pathData="M62,38c2,0 3,2 2,4s-3,2 -4,0s-1,-4 2,-4" android:fillColor="#44FFFFFF" />
+
+</vector>

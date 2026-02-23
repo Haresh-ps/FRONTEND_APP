@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.App">
+
+        <activity
+            android:name=".doctor.DoctorSplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChatbotActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorChatbotActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorGetStartedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorContinueActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorAnalysisActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorComponentIdentificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorWorkflowActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorDisclaimerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorLoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorSignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorProfileSetupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorProfileDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorPatientDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorProfileSuccessActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorSavedSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorAppInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorHelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorLogoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.DoctorNewAssessmentActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorQuestion1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorQuestion2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorQuestion3Activity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorQuestion4Activity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorQuestion5Activity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorQuestion6Activity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorNotesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorReviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorEvidenceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorUploadPicActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorPicPreviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorUploadVideoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorUploadProgressActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorReadyAnalyzeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorAIProcessingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorMetabolicIndicatorActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorAnalysisResultsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorAnalysisCompleteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorFinalResultsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorAIResultsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorDetectedComponentsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorMetabolicActivityLevelActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorConfidenceScoreActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorResultDisclaimerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorReportsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorResultsReportActivity"
+            android:exported="true" />
+        <activity
+            android:name=".doctor.DoctorForgotPasswordActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

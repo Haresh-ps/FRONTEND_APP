@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="300dp"
+    android:height="300dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background Gradient -->
+    <path android:pathData="M0,0h100v100h-100z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="50"
+                android:centerY="50"
+                android:gradientRadius="50">
+                <item android:color="#80DEEA" android:offset="0"/>
+                <item android:color="#004D40" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Data graph -->
+    <path
+        android:strokeColor="#80FFFFFF"
+        android:strokeWidth="0.5"
+        android:pathData="M20,60 h2 v5 h-2z M23,60 h2 v10 h-2z M26,60 h2 v8 h-2z M29,60 h2 v12 h-2z M32,60 h2 v15 h-2z M35,60 h2 v10 h-2z M38,60 h2 v8 h-2z M41,60 h2 v12 h-2z M44,60 h2 v18 h-2z M47,60 h2 v20 h-2z M50,60 h2 v18 h-2z M53,60 h2 v12 h-2z M56,60 h2 v8 h-2z M59,60 h2 v10 h-2z M62,60 h2 v15 h-2z M65,60 h2 v12 h-2z M68,60 h2 v8 h-2z M71,60 h2 v10 h-2z M74,60 h2 v5 h-2z M77,60 h2 v8 h-2z M80,60 h2 v5 h-2z"/>
+
+    <!-- Molecule Structures -->
+    <path
+        android:strokeColor="#B3FFFFFF"
+        android:strokeWidth="0.5"
+        android:pathData="M30,40 l5,-5 l5,5 l-5,5 z M35,35 l0,-5 l5,-5 M55,30 l5,5 l-5,5 l-5,-5 z M60,35 l5,-5 M65,70 l-5,5 l-5,-5 l5,-5z M40,75 l-5,-5 l-5,5 l5,5z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,40m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M40,40m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M35,30m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M35,50m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M55,30m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M60,35m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M65,25m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M65,70m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M60,75m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M55,70m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M40,75m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0 M35,80m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0"/>
+
+</vector>

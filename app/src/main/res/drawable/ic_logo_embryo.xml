@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Background Outer Glow/Circle -->
+    <path
+        android:pathData="M60,10 A50,50 0 1,1 59.9,10 Z"
+        android:fillColor="#E0F2FE"
+        android:fillAlpha="0.3"/>
+
+    <!-- Main Cell Body -->
+    <path
+        android:pathData="M60,20 A40,40 0 1,1 59.9,20 Z"
+        android:fillColor="#4F86F7"/>
+
+    <!-- Stylized Nucleus / AI Core -->
+    <path
+        android:pathData="M60,40 A20,20 0 1,1 59.9,40 Z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.9"/>
+
+    <!-- Abstract Connection Lines (AI Nodes) -->
+    <path
+        android:pathData="M60,40 L60,25 M60,80 L60,95 M25,60 L40,60 M80,60 L95,60"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"/>
+
+    <!-- Dots at node ends -->
+    <path
+        android:pathData="M60,22 A3,3 0 1,1 59.9,22 Z M60,98 A3,3 0 1,1 59.9,98 Z M22,60 A3,3 0 1,1 21.9,60 Z M98,60 A3,3 0 1,1 97.9,60 Z"
+        android:fillColor="#FFFFFF"/>
+
+</vector>

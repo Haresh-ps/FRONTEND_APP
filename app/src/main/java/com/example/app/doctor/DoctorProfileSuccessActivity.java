@@ -14,7 +14,7 @@ public class DoctorProfileSuccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_profile_success);
 
-        ImageButton btnBack = findViewById(R.id.btn_back_success);
+        ImageButton btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(v -> finish());
 
         Button btnDashboard = findViewById(R.id.btn_go_to_dashboard);

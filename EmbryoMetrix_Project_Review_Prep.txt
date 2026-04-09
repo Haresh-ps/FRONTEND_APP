@@ -1,0 +1,72 @@
+# EmbryoMetrix Project Review Preparation Guide
+
+## 1. Project Overview: About the App
+**EmbryoMetrix** is a state-of-the-art **Clinical Decision-Support Tool** designed for embryologists and fertility specialists. The app leverages **Advanced AI** to analyze embryo viability by evaluating "spent" culture media markers and metabolic data. 
+
+### Core Mission
+To increase IVF success rates by providing doctors with a non-invasive, data-driven "Viability Score" for embryos before transfer, moving beyond traditional visual-only grading.
+
+---
+
+## 2. Technical Stack (Frontend & Backend)
+
+### Frontend (User Interface)
+*   **Mobile App (Android)**:
+    *   **Language**: Native Java.
+    *   **Architecture**: Activity-based navigation following Material 3 Design principles.
+    *   **Networking**: **Retrofit & OkHttp** for synchronized API communication.
+    *   **Features**: Multi-step patient intake, diagnostic questions (Q1-Q6), media upload, and real-time AI results display.
+*   **Web Dashboard**:
+    *   **Framework**: **React.js** (v18+).
+    *   **Styling**: **Tailwind CSS** for a premium, responsive "glassmorphism" aesthetic.
+    *   **Icons**: Lucide-React.
+    *   **State Management**: React Hooks (useState, useEffect).
+
+### Backend (Logic & Data)
+*   **Core Framework**: **Django REST Framework (DRF)** (Python).
+*   **Database**: **MySQL** for robust, relational data storage (Users, Profiles, Assessments, Analysis Results).
+*   **Authentication**: Custom **JWT (JSON Web Token)** simulation for secure session management.
+*   **AI Engine**: 
+    *   Implements a weighted scoring algorithm (0-100).
+    *   Analyzes **metabolic parameters**: Glucose, Lactate, Pyruvate, and Oxidative Stress.
+    *   Validates morphological questions (Culture Day, pH Deviation, Visual Clarity).
+    *   Simulates **Spectral Analysis** (Raman Spectroscopy) based on uploaded media markers.
+
+---
+
+## 3. How the App Works (Workflow)
+1.  **Patient Registry**: Doctor enters patient details (ID, Age, DOB).
+2.  **Diagnostic Input**: Doctor answers 6 key clinical questions regarding embryo development (e.g., Culture Day, Medium type, pH deviation).
+3.  **Media Upload**: Uploads an image or marker data of the culture media.
+4.  **AI Analysis**: The backend processes the inputs:
+    *   Scores the development stage (D5/D6 gets higher weight).
+    *   Analyzes metabolic levels against clinical benchmarks.
+    *   Detects "Raman Peaks" if specified in the media.
+5.  **Result Generation**: The app displays a **Confidence Score (%)**, a **Viability Prediction** (Good/Moderate/Low), and detailed **AI Feedback**.
+6.  **Reporting**: A PDF or digital report is archived for future reference.
+
+---
+
+## 4. Key Uses of the App
+*   **Embryo Selection**: Helps prioritize the best embryo for transfer based on metabolic health.
+*   **Clinical Archiving**: Maintains a structured history of all patient assessments.
+*   **Lab Efficiency**: Standardizes the grading process across different embryologists.
+*   **Patient Communication**: Provides visual/data-backed confidence to patients during the IVF journey.
+
+---
+
+## 5. Our Chatbot AI: Why It's Different
+Unlike general-purpose AI (like ChatGPT), the **EmbryoMetrix Chatbot** is:
+*   **Domain-Specific**: It is pre-trained on a **Clinical Knowledge Base** specifically for IVF and Embryology.
+*   **Metabolic Expert**: It can explain complex markers like **Glucose uptake** and **Lactate production** in simple terms.
+*   **Spectral Analysis Aware**: It understands **Raman Spectroscopy** peaks (e.g., 1000 cm⁻¹ for glucose, 1600 cm⁻¹ for proteins).
+*   **Contextual Assistant**: It answers specific questions about "Zona Pellucida", "Blastocyst stages", and "ICM quality" that a general AI might answer too broadly.
+*   **Diagnostic Aid**: It helps doctors interpret the "AI Feedback" provided in the reports.
+
+---
+
+## 6. Preparation Checklist for Review
+1.  **Live Demo**: Be ready to run the Android app on an emulator/device and the React web dashboard on localhost.
+2.  **Database Inspection**: Have the MySQL Workbench or terminal ready to show the `Assessments` table.
+3.  **Code Logic**: Focus on `analyze_assessment` in `views.py`—this is the "brain" where the scoring happens.
+4.  **UI Consistency**: Show how the Android app and Web dashboard share the same API endpoints for a unified experience.

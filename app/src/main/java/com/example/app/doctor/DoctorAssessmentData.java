@@ -3,10 +3,11 @@ package com.example.app.doctor;
 public class DoctorAssessmentData {
     private static DoctorAssessmentData instance;
     
-    private String embryoDay = "Blastocyst";
-    private String cultureDuration = "5 days";
+    private String embryoDay = "";
+    private String cultureDuration = "";
     private int embryoCount = 1;
     private int assessmentId = -1; // -1 means not created yet
+    private String assessmentDate = "";
     
     // Patient Details
     private String patientId = "";
@@ -19,6 +20,20 @@ public class DoctorAssessmentData {
     private float lactateLevel = 0f;
     private float pyruvateLevel = 0f;
     private float oxidativeStress = 0f;
+    
+    // New metabolic markers
+    private float oxygenUptake = 0f;
+    private float co2Release = 0f;
+    private int aminoAcids = 0;
+    private int vitamins = 0;
+    private int ammonia = 0;
+    private float phChange = 0f;
+    
+    // Analysis Result
+    private float confidenceScore = 0f;
+    private String viabilityPrediction = "";
+    private String aiFeedback = "";
+    private String uploadedImageUri = "";
     
     // Store generic answers for Q1-Q6
     private java.util.Map<String, String> questionsData = new java.util.HashMap<>();
@@ -43,6 +58,9 @@ public class DoctorAssessmentData {
 
     public int getAssessmentId() { return assessmentId; }
     public void setAssessmentId(int assessmentId) { this.assessmentId = assessmentId; }
+
+    public String getAssessmentDate() { return assessmentDate; }
+    public void setAssessmentDate(String date) { this.assessmentDate = date; }
 
     public String getPatientId() { return patientId; }
     public void setPatientId(String patientId) { this.patientId = patientId; }
@@ -82,12 +100,43 @@ public class DoctorAssessmentData {
     public float getOxidativeStress() { return oxidativeStress; }
     public void setOxidativeStress(float oxidativeStress) { this.oxidativeStress = oxidativeStress; }
 
+    public float getOxygenUptake() { return oxygenUptake; }
+    public void setOxygenUptake(float oxygenUptake) { this.oxygenUptake = oxygenUptake; }
+
+    public float getCo2Release() { return co2Release; }
+    public void setCo2Release(float co2Release) { this.co2Release = co2Release; }
+
+    public int getAminoAcids() { return aminoAcids; }
+    public void setAminoAcids(int aminoAcids) { this.aminoAcids = aminoAcids; }
+
+    public int getVitamins() { return vitamins; }
+    public void setVitamins(int vitamins) { this.vitamins = vitamins; }
+
+    public int getAmmonia() { return ammonia; }
+    public void setAmmonia(int ammonia) { this.ammonia = ammonia; }
+
+    public float getPhChange() { return phChange; }
+    public void setPhChange(float phChange) { this.phChange = phChange; }
+
+    public float getConfidenceScore() { return confidenceScore; }
+    public void setConfidenceScore(float confidenceScore) { this.confidenceScore = confidenceScore; }
+
+    public String getViabilityPrediction() { return viabilityPrediction; }
+    public void setViabilityPrediction(String viabilityPrediction) { this.viabilityPrediction = viabilityPrediction; }
+
+    public String getAiFeedback() { return aiFeedback; }
+    public void setAiFeedback(String aiFeedback) { this.aiFeedback = aiFeedback; }
+
+    public String getUploadedImageUri() { return uploadedImageUri; }
+    public void setUploadedImageUri(String uploadedImageUri) { this.uploadedImageUri = uploadedImageUri; }
+
     public void clear() {
-        embryoDay = "Blastocyst";
-        cultureDuration = "5 days";
+        embryoDay = "";
+        cultureDuration = "";
         embryoCount = 1;
         questionsData.clear();
         assessmentId = -1;
+        assessmentDate = "";
         patientId = "";
         patientName = "";
         patientDob = "";
@@ -96,5 +145,15 @@ public class DoctorAssessmentData {
         lactateLevel = 0f;
         pyruvateLevel = 0f;
         oxidativeStress = 0f;
+        oxygenUptake = 0f;
+        co2Release = 0f;
+        confidenceScore = 0f;
+        viabilityPrediction = "";
+        aiFeedback = "";
+        uploadedImageUri = "";
+        aminoAcids = 0;
+        vitamins = 0;
+        ammonia = 0;
+        phChange = 0f;
     }
 }

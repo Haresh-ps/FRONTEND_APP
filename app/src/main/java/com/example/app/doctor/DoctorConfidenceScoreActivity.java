@@ -20,10 +20,19 @@ public class DoctorConfidenceScoreActivity extends AppCompatActivity {
         ProgressBar pbConfidence = findViewById(R.id.pb_confidence);
         TextView tvDescription = findViewById(R.id.tv_description);
 
-        int confidence = 94; // Example static value from UI
+        DoctorAssessmentData data = DoctorAssessmentData.getInstance();
+        int confidence = (int) data.getConfidenceScore();
+        if (confidence == 0) confidence = 94; // Fallback for simulation
+        
         tvPercentage.setText(confidence + "%");
         pbConfidence.setProgress(confidence);
-        tvDescription.setText("The AI is " + confidence + "% confident in its analysis of the spent embryo culture media. This score reflects the AI's certainty based on the data provided and the analysis performed.");
+        
+        String feedback = data.getAiFeedback();
+        if (feedback == null || feedback.isEmpty()) {
+            tvDescription.setText("The AI is " + confidence + "% confident in its analysis of the spent embryo culture media. This score reflects the AI's certainty based on the data provided and the analysis performed.");
+        } else {
+            tvDescription.setText(feedback);
+        }
 
         findViewById(R.id.btn_next_confidence).setOnClickListener(v -> {
             Intent intent = new Intent(this, DoctorResultDisclaimerActivity.class);

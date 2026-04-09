@@ -1,0 +1,774 @@
+/* 
+  EMBRYO METRIX WEB - V3 (STABLE & FEATURE RICH) - UPDATED WITH AUTH
+  Dependencies: Tailwind CSS, Lucide-React
+*/
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Home, PlusSquare, FileText, User, ChevronLeft, ChevronRight, Microscope, 
+  Activity, Info, LogOut, Clock, FlaskConical, Zap, CheckCircle2, 
+  Camera, Video, Database, MapPin, Phone, Mail, Edit2, Save, X, Plus, ArrowRight,
+  Brain, ClipboardList, Loader2, Sparkles, Beaker, Thermometer, Droplets, GraduationCap, Briefcase, Target
+} from 'lucide-react';
+
+// --- BRANDING COMPONENT ---
+
+const Logo = ({ size = "md", showText = false, light = false }) => {
+  const sizes = {
+    sm: "w-8 h-8",
+    md: "w-12 h-12",
+    lg: "w-20 h-20"
+  };
+  
+  return (
+    <div className={`flex flex-col items-center ${size === 'lg' ? 'gap-6' : 'gap-2'}`}>
+      <div className={`relative ${sizes[size]} flex items-center justify-center`}>
+        {/* Simple SVG representation of the provided logo design */}
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle cx="50" cy="50" r="22" className={light ? "fill-white" : "fill-blue-600"} />
+          <circle cx="50" cy="50" r="10" className="fill-white" />
+          <path d="M50 10 L50 35 M50 65 L50 90 M10 50 L35 50 M65 50 L90 50" stroke={light ? "white" : "#2563eb"} strokeWidth="4" strokeLinecap="round" opacity="0.4" />
+          <path d="M25 25 Q50 15 75 25 M75 75 Q50 85 25 75" fill="none" stroke={light ? "white" : "#22d3ee"} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      </div>
+      {showText && (
+        <div className="text-center">
+          <h1 className={`font-black tracking-tight ${size === 'lg' ? 'text-3xl' : 'text-sm'} ${light ? 'text-white' : 'text-gray-900'}`}>Embryo Metrix</h1>
+          <p className={`font-bold tracking-[0.2em] uppercase ${size === 'lg' ? 'text-[10px]' : 'text-[6px]'} ${light ? 'text-blue-200' : 'text-gray-400'}`}>Advanced Clinical AI</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- SUB-COMPONENTS ---
+
+const AuthView = ({ mode, setMode, onLogin, onSignUp }) => {
+  const [formData, setFormData] = useState({
+    email: '', password: '', name: '', qualification: '', experience: '', clinicName: '', phone: '', address: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (mode === 'login') onLogin(formData.email);
+    else onSignUp(formData);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC] px-4 py-12">
+      <div className={`max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl p-10 border border-blue-50 transition-all duration-500 ${mode === 'signup' ? 'max-w-2xl' : ''}`}>
+      <div className="text-center mb-10">
+        <Logo size="lg" />
+        <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mt-6">{mode === 'login' ? 'Sign In' : 'Create Account'}</h2>
+        <p className="text-gray-400 font-bold text-[10px] mt-3 uppercase tracking-[0.3em]">Embryo Metrix AI Intelligence</p>
+      </div>
+
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className={mode === 'signup' ? "grid grid-cols-1 md:grid-cols-2 gap-6" : "space-y-6"}>
+            <div className="space-y-4">
+               <div>
+                <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Email Address</label>
+                <input value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="doctor@clinic.com" required />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Password</label>
+                <input value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} type="password" className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="••••••••" required />
+              </div>
+              {mode === 'signup' && (
+                <>
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Full Name</label>
+                    <input value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="Dr. John Doe" required />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Qualification</label>
+                    <input value={formData.qualification} onChange={e => setFormData({...formData, qualification: e.target.value})} className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="MD, FRCOG" required />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {mode === 'signup' && (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Yrs of Experience</label>
+                  <input type="number" value={formData.experience} onChange={e => setFormData({...formData, experience: e.target.value})} className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="10" required />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Clinic Name</label>
+                  <input value={formData.clinicName} onChange={e => setFormData({...formData, clinicName: e.target.value})} className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="Metrix Fertility Lab" required />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Phone Number</label>
+                  <input value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="+1..." required />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Address</label>
+                  <input value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="City, State" required />
+                </div>
+              </div>
+            )}
+          </div>
+
+          <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl shadow-2xl shadow-blue-200 transition-all active:scale-95 uppercase tracking-[0.2em] mt-4">
+            {mode === 'login' ? 'Verify Identity' : 'Register Profile'}
+          </button>
+        </form>
+
+        <div className="mt-8 text-center">
+            <button onClick={() => setMode(mode === 'login' ? 'signup' : 'login')} className="text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-blue-600 transition-colors">
+                {mode === 'login' ? "Don't have an account? Sign Up" : "Already have an account? Sign In"}
+            </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const DashboardView = ({ profile, onStartAssessment, onViewReport, recentReports }) => (
+  <div className="space-y-12 animate-in fade-in slide-in-from-bottom-5 duration-700">
+    <header className="flex justify-between items-end">
+      <div>
+        <h1 className="text-5xl font-black text-gray-900 tracking-tighter uppercase leading-none">Dashboard</h1>
+        <p className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] mt-4">Welcome back, {profile.name}</p>
+      </div>
+    </header>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div onClick={onStartAssessment} className="group bg-blue-600 p-10 rounded-[3rem] shadow-2xl shadow-blue-100 cursor-pointer hover:scale-[1.02] transition-all relative overflow-hidden flex flex-col justify-between min-h-[320px]">
+        <div className="relative z-10 w-20 h-20 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center text-white mb-10">
+          <PlusSquare size={40} />
+        </div>
+        <div className="relative z-10">
+          <h3 className="text-3xl font-black text-white uppercase leading-none mb-4 tracking-tighter">New<br/>Assessment</h3>
+          <p className="text-blue-100 font-bold text-sm tracking-wide">Start a fresh AI analysis for spent media markers.</p>
+        </div>
+        <Activity className="absolute -right-10 -bottom-10 w-48 h-48 text-white/10" />
+      </div>
+
+      <div onClick={() => onViewReport(null)} className="group bg-white p-10 rounded-[3rem] shadow-sm border-2 border-gray-50 cursor-pointer hover:shadow-2xl hover:border-blue-100 transition-all flex flex-col justify-between min-h-[320px]">
+        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-10 group-hover:bg-blue-600 group-hover:text-white transition-all">
+          <FileText size={32} />
+        </div>
+        <div>
+          <h3 className="text-3xl font-black text-gray-900 uppercase leading-none mb-4 tracking-tighter">Clinical<br/>Reports</h3>
+          <p className="text-gray-400 font-bold text-sm tracking-wide">Access previous analysis results and clinical data archives.</p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <section>
+       <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter mb-8">Recent Activity</h2>
+       <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-50 shadow-sm">
+          {recentReports.map((report, i) => (
+            <div key={report.id} onClick={() => onViewReport(report)} className={`flex items-center justify-between p-8 ${i !== recentReports.length-1 ? 'border-b border-gray-50' : ''} hover:bg-gray-50 transition-all cursor-pointer group`}>
+               <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 font-black text-xs uppercase tracking-tighter leading-none text-center group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">R<br/>ID</div>
+                  <div>
+                     <p className="font-black text-lg text-gray-900 leading-none mb-1 group-hover:text-blue-600 transition-colors">{report.patientName}</p>
+                     <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{report.id} • {report.date}</p>
+                  </div>
+               </div>
+               <div className="flex items-center gap-8">
+                  <div className="text-right">
+                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Confidence</p>
+                     <p className={`font-black text-xl ${report.score > 90 ? 'text-blue-600' : 'text-emerald-500'}`}>{report.score}%</p>
+                  </div>
+                  <ChevronRight className="text-gray-300 group-hover:text-blue-600 transition-colors" />
+               </div>
+            </div>
+          ))}
+       </div>
+    </section>
+  </div>
+);
+
+const ReportsListView = ({ reports, onViewReport, onNewAssessment }) => (
+  <div className="space-y-8 animate-in fade-in duration-700">
+    <div className="flex justify-between items-center">
+      <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase">Clinical Reports</h2>
+      <button onClick={onNewAssessment} className="bg-blue-600 text-white p-4 rounded-2xl shadow-xl shadow-blue-100 active:scale-95 transition-all">
+        <Plus size={24} strokeWidth={3} />
+      </button>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
+      {reports.map(report => (
+        <div key={report.id} onClick={() => onViewReport(report)} className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:border-blue-100 transition-all cursor-pointer group">
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Report ID</p>
+              <p className="font-black text-gray-900">{report.id}</p>
+            </div>
+            <div className={`px-4 py-2 rounded-xl font-black text-xs uppercase tracking-widest ${report.score > 90 ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
+              {report.score}% Match
+            </div>
+          </div>
+          <h3 className="text-2xl font-black text-gray-900 uppercase tracking-tight mb-2 group-hover:text-blue-600 transition-colors">{report.patientName}</h3>
+          <div className="flex gap-4 items-center text-gray-400 font-bold text-xs uppercase tracking-widest">
+            <span>{report.date}</span>
+            <span>•</span>
+            <span>{report.age} YR</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const AssessmentView = ({ step, data, setData, onNext, onPrev, onComplete }) => {
+  // Step 0: Patient Intake
+  if (step === 0) {
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-3xl mx-auto">
+        <div className="bg-white rounded-[2.5rem] p-12 shadow-xl border border-gray-100">
+          <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mb-2 text-center">Patient Intake</h2>
+          <p className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-12 text-center">Registry system for clinical reporting</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Patient ID</label>
+                <input value={data.patientId} onChange={e => setData({...data, patientId: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" placeholder="e.g. P90210" />
+             </div>
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Patient Name</label>
+                <input value={data.patientName} onChange={e => setData({...data, patientName: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" placeholder="First & Last Name" />
+             </div>
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Date of Birth</label>
+                <input type="date" value={data.dob} onChange={e => setData({...data, dob: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" />
+             </div>
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Patient Age</label>
+                <input type="number" value={data.age} onChange={e => setData({...data, age: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" placeholder="Years" />
+             </div>
+          </div>
+        </div>
+        <button onClick={() => onNext()} className="w-full bg-blue-600 text-white font-black py-6 rounded-[1.5rem] shadow-2xl shadow-blue-200 transition-all active:scale-95 uppercase tracking-[0.2em]">Start Assessment Flow</button>
+      </div>
+    );
+  }
+
+  // Step 1-6: Questions
+  if (step >= 1 && step <= 6) {
+    const questions = [
+      { title: "Embryo Development Day", options: ["D3", "D5", "D6"], key: "q1_day" },
+      { title: "Culture Duration", isInput: true, options: ["Hours", "Days"], key: "q2_duration", unitKey: "q2_unit" },
+      { title: "Culture Medium Used", options: ["G-1 PLUS (Vitrolife)", "G-2 PLUS (Vitrolife)", "Stage 1-Step", "Origio Sequential", "Other"], key: "q3_medium" },
+      { title: "Media Color Change", options: ["None", "Mild", "Significant"], key: "q4_color" },
+      { title: "pH Deviation", options: ["Normal", "Slight", "High"], key: "q5_ph" },
+      { title: "Visual Clarity", options: ["Clear", "Slightly turbid", "Turbid"], key: "q6_clarity" }
+    ];
+    const q = questions[step - 1];
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-2xl mx-auto">
+        <div className="bg-white rounded-[3rem] p-12 shadow-xl border border-gray-100">
+           <div className="flex justify-between items-center mb-10">
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Step {step} / 9</span>
+              <div className="flex gap-2">
+                 {[1,2,3,4,5,6,7,8,9].map(i => <div key={i} className={`h-1.5 w-6 rounded-full ${i <= step ? 'bg-blue-600' : 'bg-gray-100'}`} />)}
+              </div>
+           </div>
+           <h2 className="text-4xl font-black text-gray-900 tracking-tighter mb-4 leading-tight">{q.title}</h2>
+           {q.isInput ? (
+             <div className="space-y-6">
+                <div className="flex gap-2 bg-gray-50 p-2 rounded-2xl">
+                   {q.options.map(opt => (
+                     <button key={opt} onClick={() => setData({...data, [q.unitKey]: opt})} className={`flex-1 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${data[q.unitKey] === opt ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>{opt}</button>
+                   ))}
+                </div>
+                <input type="number" value={data[q.key]} onChange={e => setData({...data, [q.key]: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-8 rounded-[2rem] font-black text-4xl text-center focus:border-blue-500 outline-none" placeholder="0" />
+             </div>
+           ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {q.options.map(opt => (
+                  <button key={opt} onClick={() => setData({...data, [q.key]: opt})} className={`relative overflow-hidden group border-4 rounded-[2.5rem] p-8 font-black transition-all active:scale-95 ${data[q.key] === opt ? 'border-blue-600 bg-blue-50 text-blue-600 shadow-xl shadow-blue-100' : 'border-gray-50 bg-gray-50 hover:bg-white hover:border-gray-100 text-gray-400 hover:text-gray-900'}`}>
+                    <span className="block text-xl uppercase tracking-widest">{opt}</span>
+                    {data[q.key] === opt && <CheckCircle2 className="absolute top-4 right-4 text-blue-600" size={24} />}
+                  </button>
+                ))}
+             </div>
+           )}
+        </div>
+        <div className="flex gap-4">
+           <button onClick={onPrev} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Back</button>
+           <button onClick={onNext} className="flex-[2] py-6 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-2xl shadow-blue-200 transition-all active:scale-95">Next Step</button>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 7: Doctor Notes
+  if (step === 7) {
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-2xl mx-auto">
+        <div className="bg-white rounded-[3rem] p-12 shadow-xl border border-gray-100">
+           <div className="flex justify-between items-center mb-10">
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Step 7 / 9</span>
+              <div className="flex gap-2">
+                 {[1,2,3,4,5,6,7,8,9].map(i => <div key={i} className={`h-1.5 w-6 rounded-full ${i <= step ? 'bg-blue-600' : 'bg-gray-100'}`} />)}
+              </div>
+           </div>
+           <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mb-2">Doctor Notes</h2>
+           <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px] mb-8">Clinical observations and remarks</p>
+           <textarea 
+             value={data.doctorNotes} 
+             onChange={e => setData({...data, doctorNotes: e.target.value})}
+             className="w-full bg-gray-50 border-2 border-gray-100 p-8 rounded-[2rem] font-bold text-lg focus:border-blue-500 outline-none min-h-[200px]" 
+             placeholder="Enter clinical notes here..."
+           />
+        </div>
+        <div className="flex gap-4">
+           <button onClick={onPrev} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Back</button>
+           <button onClick={onNext} className="flex-[2] py-6 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-2xl shadow-blue-200 transition-all active:scale-95">Next: Media</button>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 8: Photo Upload
+  if (step === 8) {
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-2xl mx-auto">
+        <div className="bg-white rounded-[3rem] p-12 shadow-xl border border-gray-100">
+           <div className="flex justify-between items-center mb-10">
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Step 8 / 9</span>
+              <div className="flex gap-2">
+                 {[1,2,3,4,5,6,7,8,9].map(i => <div key={i} className={`h-1.5 w-6 rounded-full ${i <= step ? 'bg-blue-600' : 'bg-gray-100'}`} />)}
+              </div>
+           </div>
+           <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mb-2">Upload Spent Media</h2>
+           <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px] mb-12">Primary visual marker extraction</p>
+           
+           <input 
+             type="file" 
+             id="photo-upload" 
+             className="hidden" 
+             accept="image/*"
+             onChange={(e) => {
+               if (e.target.files && e.target.files[0]) {
+                 setData({...data, photo: e.target.files[0]});
+               }
+             }}
+           />
+           
+           <label 
+             htmlFor="photo-upload"
+             className="border-4 border-dashed border-gray-100 rounded-[3rem] p-20 flex flex-col items-center justify-center gap-6 group hover:border-blue-400 transition-all cursor-pointer bg-gray-50/50"
+           >
+              <div className="w-24 h-24 bg-white rounded-3xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all group-hover:scale-110 duration-500">
+                 {data.photo ? <CheckCircle2 size={40} /> : <Camera size={40} />}
+              </div>
+              <div className="text-center">
+                <p className="font-black text-xl text-gray-900 uppercase tracking-tighter">
+                  {data.photo ? data.photo.name : 'Select Photo File'}
+                </p>
+                {data.photo && <p className="text-blue-600 font-bold text-[10px] uppercase mt-2">File Ready for Analysis</p>}
+              </div>
+           </label>
+        </div>
+        <div className="flex gap-4">
+           <button onClick={onPrev} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Back</button>
+           <button onClick={onNext} className="flex-[2] py-6 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-2xl shadow-blue-200 transition-all active:scale-95">Analyze Media</button>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 9: AI Analysis Loading
+  if (step === 9) {
+    return <AnalysisLoadingView onComplete={onComplete} />;
+  }
+};
+
+const AnalysisLoadingView = ({ onComplete }) => {
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState("Initializing AI Models...");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          onComplete();
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 40);
+
+    const statusUpdates = [
+      { p: 10, s: "Calibrating Spent Media Sensors..." },
+      { p: 30, s: "Extracting Glucose Markers..." },
+      { p: 50, s: "Analyzing Metabolic Pathways..." },
+      { p: 70, s: "Predicting Embryo Viability..." },
+      { p: 90, s: "Finalizing Clinical Report..." }
+    ];
+
+    statusUpdates.forEach(update => {
+      if (progress >= update.p) setStatus(update.s);
+    });
+
+    return () => clearInterval(timer);
+  }, [progress, onComplete]);
+
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-12 animate-in zoom-in-95 duration-700">
+      <div className="relative">
+        <div className="w-48 h-48 rounded-full border-8 border-gray-50 flex items-center justify-center relative shadow-inner">
+           <Brain size={80} className="text-blue-600 animate-pulse" />
+           <svg className="absolute -inset-2 w-52 h-52 -rotate-90">
+             <circle 
+               cx="104" cy="104" r="100" 
+               fill="transparent" 
+               stroke="currentColor" 
+               strokeWidth="8" 
+               className="text-blue-600"
+               strokeDasharray={628}
+               strokeDashoffset={628 - (628 * progress) / 100}
+               strokeLinecap="round"
+             />
+           </svg>
+        </div>
+        <div className="absolute -top-4 -right-4 bg-white p-3 rounded-2xl shadow-xl border border-blue-50">
+           <Sparkles className="text-blue-500 animate-bounce" size={24} />
+        </div>
+      </div>
+      <div className="text-center space-y-4">
+        <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase">{progress}%</h2>
+        <p className="text-blue-600 font-black uppercase tracking-[0.3em] text-xs animate-pulse">{status}</p>
+      </div>
+    </div>
+  );
+};
+
+const ResultsView = ({ report, onBackToReports }) => {
+  const data = report || { 
+    patientName: "Sophia Carter", 
+    id: "R-9021", 
+    patientId: "P-1002",
+    age: 36, 
+    score: 95, 
+    viability: 'High',
+    feedback: 'Excellent metabolic markers observed. Glucose and Pyruvate levels indicate optimal developmental potential.',
+    glucose: 120,
+    lactate: 14.2,
+    oxidative: 4.8,
+    pyruvate: 0.85
+  };
+
+  const handleExportPDF = () => {
+    alert("Generating encrypted PDF report...");
+    window.print();
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto space-y-10 animate-in zoom-in-95 duration-700 pb-20 print:p-0 print:max-w-none print:m-0">
+       <style dangerouslySetInnerHTML={{ __html: `
+         @media print {
+           @page { size: auto; margin: 15mm; }
+           body { background: white !important; }
+           nav, .print-hidden, .md\\:hidden { display: none !important; }
+           main { padding: 0 !important; margin: 0 !important; }
+           .shadow-2xl, .shadow-sm { box-shadow: none !important; border: 1px solid #f1f5f9 !important; }
+           * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+           .bg-[#1e1b4b] { background-color: #1e1b4b !important; color: white !important; }
+           .bg-blue-600 { background-color: #2563eb !important; color: white !important; }
+           .text-blue-600 { color: #2563eb !important; }
+           .bg-gray-50 { background-color: #f8fafc !important; }
+         }
+       `}} />
+       <button onClick={onBackToReports} className="flex items-center gap-3 font-black uppercase text-[10px] tracking-widest text-gray-400 hover:text-blue-600 transition-colors print:hidden">
+         <ChevronLeft size={16} /> Back to Archive
+       </button>
+       
+       <section className="bg-white rounded-[4rem] p-12 shadow-2xl shadow-blue-50 border border-gray-50 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50/50 rounded-full -mr-32 -mt-32 blur-3xl opacity-50" />
+          <div className="flex justify-between items-start mb-12">
+             <h2 className="text-5xl font-black text-gray-900 tracking-tighter uppercase leading-none">Analysis<br/>Report</h2>
+             <div className="text-right">
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Patient ID</p>
+                <div className="px-6 py-3 bg-gray-50 rounded-2xl font-black text-blue-600 shadow-inner">{data.patientId || data.id}</div>
+             </div>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
+             <div>
+                <p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Patient</p>
+                <p className="font-black text-2xl text-gray-900 tracking-tight">{data.patientName}</p>
+             </div>
+             <div>
+                <p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Confidence Score</p>
+                <div className="flex items-end gap-1"><p className="font-black text-4xl text-emerald-600 leading-none">{data.score}</p><p className="font-black text-xl text-emerald-300">%</p></div>
+             </div>
+             <div>
+                <p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Patient Age</p>
+                <p className="font-black text-2xl text-gray-900 tracking-tight">{data.age} YR</p>
+             </div>
+             <div>
+               <p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Viability Prediction</p>
+               <div className={`px-4 py-2 rounded-xl font-black text-sm uppercase tracking-widest inline-block ${data.viability === 'High' ? 'bg-blue-600 text-white' : 'bg-orange-500 text-white'}`}>
+                 {data.viability} Viability
+               </div>
+             </div>
+          </div>
+       </section>
+
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="bg-white p-10 rounded-[3.5rem] border border-gray-50 shadow-sm space-y-10">
+             <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 uppercase font-black text-[10px] tracking-[0.2em] text-blue-600"><Microscope size={20} /> Metabolic Markers</div>
+                <span className="bg-emerald-50 text-emerald-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm shadow-emerald-100">Optimized</span>
+             </div>
+             <div className="grid grid-cols-2 gap-8">
+                {[
+                  { name: "Glucose", v: `${data.glucose} mg/dL`, p: 85, icon: Droplets },
+                  { name: "Lactate", v: `${data.lactate} mmol/L`, p: 65, icon: Beaker },
+                  { name: "Oxidative Stress", v: `${data.oxidative} µM`, p: 40, icon: Thermometer },
+                  { name: "Pyruvate", v: `${data.pyruvate} mM`, p: 72, icon: FlaskConical }
+                ].map(m => (
+                  <div key={m.name} className="space-y-3">
+                    <div className="flex items-center gap-2 font-black uppercase text-[9px] tracking-widest text-gray-400">
+                      <m.icon size={12} className="text-blue-500" />
+                      {m.name}
+                    </div>
+                    <div className="font-black text-xl text-gray-900">{m.v}</div>
+                    <div className="h-2 w-full bg-gray-50 rounded-full overflow-hidden shadow-inner">
+                       <div className="h-full bg-blue-600 rounded-full" style={{width: `${m.p}%`}} />
+                    </div>
+                  </div>
+                ))}
+             </div>
+          </div>
+
+          <div className="bg-[#1e1b4b] p-10 rounded-[3.5rem] text-white flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+             <Zap className="absolute -right-10 -bottom-10 w-48 h-48 text-blue-400/10 group-hover:scale-110 transition-transform duration-[2s]" strokeWidth={3} />
+             <div className="relative z-10">
+               <div className="flex items-center gap-3 font-black text-[10px] uppercase tracking-[0.3em] text-blue-400 mb-6">
+                 <Sparkles size={16} /> AI Feedback Engine
+               </div>
+               <div className="font-black text-3xl uppercase leading-tight tracking-tighter mb-6">Metabolic Path<br/>Analysis Summary</div>
+               <p className="text-blue-200 text-sm font-medium leading-relaxed tracking-wide opacity-80 group-hover:opacity-100 transition-opacity">
+                 {data.feedback}
+               </p>
+             </div>
+             <div className="flex gap-4 relative z-10 mt-10 print:hidden">
+               <button onClick={handleExportPDF} className="flex-1 bg-white text-blue-900 font-black py-5 rounded-3xl uppercase tracking-widest text-[10px] shadow-xl hover:bg-blue-50 transition-all">Export PDF</button>
+               <button className="w-16 h-16 bg-blue-600 flex items-center justify-center rounded-3xl shadow-xl hover:bg-blue-500 transition-all"><Plus size={24} /></button>
+             </div>
+          </div>
+       </div>
+
+       {data.doctorNotes && (
+         <section className="bg-white rounded-[3rem] p-10 border border-gray-100 shadow-sm">
+            <h3 className="flex items-center gap-3 font-black text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-6">
+              <ClipboardList size={16} /> Clinical Notes
+            </h3>
+            <p className="text-gray-700 font-medium italic">"{data.doctorNotes}"</p>
+         </section>
+       )}
+    </div>
+  );
+};
+
+const ProfileView = ({ profile, setProfile, isEditing, setIsEditing }) => (
+  <div className="max-w-4xl mx-auto animate-in fade-in duration-700 space-y-12">
+    <header className="flex justify-between items-center">
+      <h1 className="text-5xl font-black text-gray-900 tracking-tighter uppercase">My Profile</h1>
+      <div className="flex gap-4">
+        {!isEditing ? (
+          <>
+            <button onClick={() => setIsEditing(true)} className="flex items-center gap-2 bg-white border-2 border-gray-100 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm"><Edit2 size={16} /> Edit</button>
+            <button onClick={() => window.location.reload()} className="flex items-center gap-2 bg-red-50 text-red-600 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-red-600 hover:text-white transition-all shadow-sm"><LogOut size={16} /> Logout</button>
+          </>
+        ) : (
+          <div className="flex gap-3">
+             <button onClick={() => setIsEditing(false)} className="flex items-center gap-2 bg-gray-50 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs text-gray-500"><X size={16}/></button>
+             <button onClick={() => setIsEditing(false)} className="flex items-center gap-2 bg-blue-600 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs text-white shadow-xl shadow-blue-200"><Save size={16} /> Save</button>
+          </div>
+        )}
+      </div>
+    </header>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+       <div className="bg-white rounded-[3rem] p-10 border border-gray-50 shadow-sm flex flex-col items-center">
+          <div className="w-48 h-48 bg-gray-100 rounded-full border-8 border-white shadow-xl flex items-center justify-center text-gray-300 mb-8"><User size={80} /></div>
+          {isEditing ? (
+            <input className="w-full bg-gray-50 border-2 border-blue-50 p-4 rounded-2xl font-black text-center focus:border-blue-600 outline-none" value={profile.name} onChange={e => setProfile({...profile, name: e.target.value})} />
+          ) : (
+            <div className="text-center">
+              <h3 className="text-3xl font-black text-gray-900 tracking-tighter uppercase mb-2">{profile.name}</h3>
+              <p className="text-blue-600 font-bold uppercase tracking-widest text-xs">{profile.qualification || profile.specialty}</p>
+            </div>
+          )}
+       </div>
+       <div className="lg:col-span-2 bg-white rounded-[3rem] p-10 border border-gray-50 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12">
+          {[
+            { label: 'Clinic', key: 'clinicName', icon: Database },
+            { label: 'Qualification', key: 'qualification', icon: GraduationCap },
+            { label: 'Experience', key: 'experience', icon: Briefcase },
+            { label: 'Phone', key: 'phone', icon: Phone },
+            { label: 'Email', key: 'email', icon: Mail },
+            { label: 'Address', key: 'address', icon: MapPin }
+          ].map(item => (
+            <div key={item.key} className="flex gap-5">
+               <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 flex-shrink-0"><item.icon size={22} /></div>
+               <div className="w-full">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
+                  {isEditing ? (
+                    <input className="w-full bg-gray-50 border-b-2 border-gray-100 p-1 font-bold outline-none focus:border-blue-600" value={profile[item.key]} onChange={e => setProfile({...profile, [item.key]: e.target.value})} />
+                  ) : (
+                    <p className="font-black text-gray-900">{profile[item.key] || 'Not specified'}</p>
+                  )}
+               </div>
+            </div>
+          ))}
+       </div>
+    </div>
+  </div>
+);
+
+// --- MAIN WRAPPER COMPONENT ---
+
+const EmbryoMetrixWeb = () => {
+  const [currentView, setCurrentView] = useState('auth'); 
+  const [authMode, setAuthMode] = useState('login');
+  const [assessmentStep, setAssessmentStep] = useState(0);
+  const [selectedReport, setSelectedReport] = useState(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+
+  // PROFILE STATE
+  const [profile, setProfile] = useState({
+    name: 'Dr. Amelia Chen', qualification: 'MD, Reproductive Endocrinology',
+    experience: '12 Years', clinicName: 'Advanced Fertility Center',
+    address: '123 Medical Plaza, New York', phone: '+1 (555) 902-1000',
+    email: 'amelia.chen@clinic.com'
+  });
+
+  // ASSESSMENT STATE
+  const [assessmentData, setAssessmentData] = useState({
+    patientId: '', patientName: '', dob: '', age: '',
+    q1_day: '', q2_duration: '', q2_unit: 'Hours',
+    q3_medium: '', q4_color: '', q5_ph: '', q6_clarity: '',
+    photo: null, doctorNotes: ''
+  });
+
+  // MOCK DATA STORE
+  const [reportsStore, setReportsStore] = useState([
+    { id: "R-9021", patientName: "Sophia Carter", date: "24 Feb 2026", score: 95, viability: 'High', age: 36, feedback: 'Optimal markers detected via AI analysis.', glucose: 120, lactate: 14.1, oxidative: 4.5, pyruvate: 0.82 },
+    { id: "R-9018", patientName: "Marcus Reid", date: "22 Feb 2026", score: 82, viability: 'Medium', age: 41, feedback: 'Moderate metabolic levels observed.', glucose: 110, lactate: 16.5, oxidative: 6.2, pyruvate: 0.71 },
+  ]);
+
+  // AUTH HANDLERS
+  const handleLogin = (email) => {
+    setCurrentView('dashboard');
+  };
+
+  const handleSignUp = (formData) => {
+    setProfile({
+      ...profile,
+      name: formData.name,
+      qualification: formData.qualification,
+      experience: `${formData.experience} Years`,
+      clinicName: formData.clinicName,
+      phone: formData.phone,
+      address: formData.address,
+      email: formData.email
+    });
+    setCurrentView('dashboard');
+  };
+
+  // NAVIGATION HANDLERS
+  const startNewAssessment = () => {
+    setAssessmentData({ patientId: '', patientName: '', dob: '', age: '', q1_day: '', q2_duration: '', q2_unit: 'Hours', q3_medium: '', q4_color: '', q5_ph: '', q6_clarity: '', photo: null, doctorNotes: '' });
+    setAssessmentStep(0);
+    setCurrentView('assessment');
+    setSelectedReport(null);
+  };
+
+  const openReportDetail = (report) => {
+    setSelectedReport(report);
+    setCurrentView('reportDetail');
+  };
+
+  const submitAssessment = () => {
+    const score = Math.floor(Math.random() * 20) + 80;
+    const newReport = {
+      id: `R-${Math.floor(Math.random() * 10000)}`,
+      patientId: assessmentData.patientId || "P-999",
+      patientName: assessmentData.patientName || "Anonymous",
+      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      score: score,
+      viability: score > 90 ? 'High' : 'Medium',
+      age: assessmentData.age || 30,
+      doctorNotes: assessmentData.doctorNotes,
+      feedback: 'AI Analysis complete. Spent media profiles indicate positive developmental metabolic markers.',
+      glucose: Math.floor(Math.random() * 40) + 100,
+      lactate: (Math.random() * 5 + 12).toFixed(1),
+      oxidative: (Math.random() * 3 + 4).toFixed(1),
+      pyruvate: (Math.random() * 0.3 + 0.7).toFixed(2)
+    };
+    setReportsStore([newReport, ...reportsStore]);
+    openReportDetail(newReport);
+  };
+
+  // RENDER LOGIC
+  if (currentView === 'auth') return <AuthView mode={authMode} setMode={setAuthMode} onLogin={handleLogin} onSignUp={handleSignUp} />;
+
+  return (
+    <div className="min-h-screen bg-[#FBFCFE] text-gray-900 selection:bg-blue-100 font-sans">
+      <div className="flex md:flex-row flex-col min-h-screen">
+        
+        {/* SIDE BAR */}
+        <nav className="md:w-32 bg-white border-r border-gray-100 flex md:flex-col items-center py-10 px-6 gap-8 sticky top-0 md:h-screen z-50">
+          <div onClick={() => setCurrentView('dashboard')} className="cursor-pointer hover:scale-105 transition-transform">
+            <Logo size="sm" />
+          </div>
+          <div className="flex md:flex-col gap-6">
+             {[
+               { id: 'dashboard', icon: Home },
+               { id: 'reportsList', icon: FileText },
+               { id: 'profile', icon: User }
+             ].map(item => (
+               <button key={item.id} onClick={() => { setCurrentView(item.id); setSelectedReport(null); }} className={`p-4 rounded-2xl transition-all ${currentView === item.id || (item.id === 'reportsList' && currentView === 'reportDetail') ? 'bg-blue-600 text-white shadow-2xl shadow-blue-200' : 'text-gray-300 hover:text-blue-600 hover:bg-blue-50'}`}>
+                 <item.icon size={26} strokeWidth={3} />
+               </button>
+             ))}
+             <button onClick={startNewAssessment} className="p-4 rounded-2xl text-blue-600 bg-blue-50 border-2 border-blue-100 hover:bg-blue-600 hover:text-white transition-all">
+                <Plus size={26} strokeWidth={3} />
+             </button>
+          </div>
+          <button onClick={() => setCurrentView('auth')} className="mt-auto p-4 text-gray-200 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all group">
+            <LogOut size={26} strokeWidth={3} />
+          </button>
+        </nav>
+
+        {/* CONTENT */}
+        <main className="flex-1 p-8 md:p-20 max-w-7xl mx-auto w-full md:pb-20 pb-40">
+           {currentView === 'dashboard' && <DashboardView profile={profile} onStartAssessment={startNewAssessment} onViewReport={openReportDetail} recentReports={reportsStore.slice(0, 3)} />}
+           {currentView === 'reportsList' && <ReportsListView reports={reportsStore} onViewReport={openReportDetail} onNewAssessment={startNewAssessment} />}
+           {currentView === 'reportDetail' && <ResultsView report={selectedReport} onBackToReports={() => setCurrentView('reportsList')} />}
+           {currentView === 'profile' && <ProfileView profile={profile} setProfile={setProfile} isEditing={isEditingProfile} setIsEditing={setIsEditingProfile} />}
+           {currentView === 'assessment' && (
+             <AssessmentView 
+               step={assessmentStep} 
+               data={assessmentData} 
+               setData={setAssessmentData} 
+               onNext={() => setAssessmentStep(assessmentStep + 1)} 
+               onPrev={() => setAssessmentStep(Math.max(0, assessmentStep - 1))}
+               onComplete={submitAssessment}
+             />
+           )}
+        </main>
+
+        {/* MOBILE BOTTOM NAV */}
+        <div className="md:hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-xl border border-gray-100 rounded-[2.5rem] py-3 px-6 shadow-2xl z-[100] flex justify-between items-center">
+           <button onClick={() => setCurrentView('dashboard')} className={`p-3 rounded-2xl ${currentView === 'dashboard' ? 'text-blue-600 bg-blue-50' : 'text-gray-400'}`}><Home size={24} strokeWidth={3}/></button>
+           <button onClick={startNewAssessment} className="p-5 bg-blue-600 text-white rounded-[1.5rem] shadow-xl active:scale-90 transition-all -translate-y-8 border-8 border-[#FBFCFE]"><PlusSquare size={28} strokeWidth={3}/></button>
+           <button onClick={() => setCurrentView('reportsList')} className={`p-3 rounded-2xl ${currentView === 'reportsList' || currentView === 'reportDetail' ? 'text-blue-600 bg-blue-50' : 'text-gray-400'}`}><FileText size={24} strokeWidth={3}/></button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EmbryoMetrixWeb;

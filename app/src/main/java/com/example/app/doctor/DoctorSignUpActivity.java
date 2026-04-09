@@ -19,65 +19,127 @@ public class DoctorSignUpActivity extends AppCompatActivity {
 
         android.widget.EditText etEmail = findViewById(R.id.et_email_signup);
         android.widget.EditText etPassword = findViewById(R.id.et_password_signup);
+        android.widget.EditText etConfirmPassword = findViewById(R.id.et_confirm_password_signup);
         Button btnSignUpSubmit = findViewById(R.id.btn_sign_up_submit);
+        android.widget.TextView tvEmailError = findViewById(R.id.tv_email_error_signup);
+        android.widget.TextView tvPasswordError = findViewById(R.id.tv_password_error_signup);
+        android.widget.TextView tvConfirmPasswordError = findViewById(R.id.tv_confirm_password_error_signup);
 
         btnSignUpSubmit.setOnClickListener(v -> {
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+            String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-            if (email.isEmpty() || password.isEmpty()) {
-                android.widget.Toast.makeText(this, "Please enter email and password", android.widget.Toast.LENGTH_SHORT).show();
-                return;
+            // Reset errors
+            tvEmailError.setVisibility(android.view.View.GONE);
+            tvPasswordError.setVisibility(android.view.View.GONE);
+            tvConfirmPasswordError.setVisibility(android.view.View.GONE);
+
+            boolean hasError = false;
+
+            if (email.isEmpty()) {
+                tvEmailError.setText("Please enter your email");
+                tvEmailError.setVisibility(android.view.View.VISIBLE);
+                hasError = true;
+            } else if (!email.endsWith("@gmail.com")) {
+                tvEmailError.setText("Only @gmail.com is allowed.");
+                tvEmailError.setVisibility(android.view.View.VISIBLE);
+                hasError = true;
+            } else {
+                // Prefix validation
+                String prefix = email.split("@")[0];
+                if (prefix.length() < 3 || Character.isDigit(prefix.charAt(0))) {
+                   tvEmailError.setText("Start prefix with letters & min 3 chars.");
+                   tvEmailError.setVisibility(android.view.View.VISIBLE);
+                   hasError = true;
+                }
             }
 
+            if (password.isEmpty()) {
+                tvPasswordError.setText("Please enter a password");
+                tvPasswordError.setVisibility(android.view.View.VISIBLE);
+                hasError = true;
+            } else if (!validatePasswordComplexity(password)) {
+                tvPasswordError.setText("Requirement: 1 Uppercase, 1 Special character, 1 Number & 8 characters atleast");
+                tvPasswordError.setVisibility(android.view.View.VISIBLE);
+                hasError = true;
+            }
+
+            if (confirmPassword.isEmpty()) {
+                tvConfirmPasswordError.setText("Please confirm your password");
+                tvConfirmPasswordError.setVisibility(android.view.View.VISIBLE);
+                hasError = true;
+            } else if (!password.equals(confirmPassword)) {
+                tvConfirmPasswordError.setText("Passwords do not match");
+                tvConfirmPasswordError.setVisibility(android.view.View.VISIBLE);
+                hasError = true;
+            }
+
+            if (hasError) return;
+
             ApiService apiService = RetrofitClient.getApiService();
-            // Using email as username for simplicity
             retrofit2.Call<Void> call = apiService.signup(new SignupRequest(email, email, password));
 
             call.enqueue(new retrofit2.Callback<Void>() {
                 @Override
                 public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
                     if (response.isSuccessful()) {
-                        android.widget.Toast.makeText(DoctorSignUpActivity.this, "Signup Successful! Logging in...", android.widget.Toast.LENGTH_SHORT).show();
-                        
-                        // Auto-Login
+                        // Auto-Login logic remains same but uses inline feedback for errors
                         retrofit2.Call<LoginResponse> loginCall = apiService.login(new LoginRequest(email, password));
                         loginCall.enqueue(new retrofit2.Callback<LoginResponse>() {
                             @Override
                             public void onResponse(retrofit2.Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
                                 if (response.isSuccessful()) {
-                        // Store the token!
-                        RetrofitClient.setAuthToken(response.body().access);
-
-                        // Navigate to Profile Setup or Details
+                                    android.content.SharedPreferences sharedPref = getSharedPreferences("DoctorProfile", android.content.Context.MODE_PRIVATE);
+                                    android.content.SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putString("email", email);
+                                    editor.putString("auth_token", response.body().access);
+                                    editor.apply();
+                                    RetrofitClient.setAuthToken(response.body().access);
                                     Intent intent = new Intent(DoctorSignUpActivity.this, DoctorProfileDetailsActivity.class);
-                                    // Clear back stack so they can't go back to signup/login
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                     android.widget.Toast.makeText(DoctorSignUpActivity.this, "Auto-Login Failed. Please login manually.", android.widget.Toast.LENGTH_LONG).show();
-                                     finish(); // Go back to login
+                                     tvPasswordError.setText("Auto-login failed. Use login screen.");
+                                     tvPasswordError.setVisibility(android.view.View.VISIBLE);
                                 }
                             }
 
                             @Override
                             public void onFailure(retrofit2.Call<LoginResponse> call, Throwable t) {
-                                android.widget.Toast.makeText(DoctorSignUpActivity.this, "Auto-Login Error: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
-                                finish();
+                                tvPasswordError.setText("Login Error: " + t.getMessage());
+                                tvPasswordError.setVisibility(android.view.View.VISIBLE);
                             }
                         });
 
                     } else {
-                        android.widget.Toast.makeText(DoctorSignUpActivity.this, "Signup Failed: " + response.message(), android.widget.Toast.LENGTH_SHORT).show();
+                        String errorMsg = "Signup Failed";
+                        try {
+                            String errorBody = response.errorBody().string();
+                            org.json.JSONObject errorJson = new org.json.JSONObject(errorBody);
+                            if (errorJson.has("error")) {
+                                errorMsg = errorJson.getString("error");
+                            }
+                        } catch (Exception e) {}
+                        tvEmailError.setText(errorMsg);
+                        tvEmailError.setVisibility(android.view.View.VISIBLE);
                     }
                 }
 
                 @Override
                 public void onFailure(retrofit2.Call<Void> call, Throwable t) {
-                    android.widget.Toast.makeText(DoctorSignUpActivity.this, "Error: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+                    tvEmailError.setText("Network error: " + t.getMessage());
+                    tvEmailError.setVisibility(android.view.View.VISIBLE);
                 }
             });
         });
+    }
+
+    private boolean validatePasswordComplexity(String password) {
+        return password.length() >= 8 &&
+               password.matches(".*[A-Z].*") &&
+               password.matches(".*[0-9].*") &&
+               password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
     }
 }

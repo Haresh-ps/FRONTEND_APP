@@ -54,19 +54,40 @@
             android:orientation="vertical"
             android:paddingHorizontal="24dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_marginTop="24dp"
-                app:cardCornerRadius="70dp"
-                app:cardElevation="0dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/profile" />
-            </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_profile_pic"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:cardCornerRadius="70dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_profile_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile" />
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_edit_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit"
+                    app:fabSize="mini"
+                    app:backgroundTint="#4F46E5"
+                    app:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_profile_pic"
+                    app:layout_constraintEnd_toEndOf="@id/cv_profile_pic" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_header_name"
@@ -114,20 +135,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-black"
-                android:text="Specialty"
+                android:text="Qualification"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_specialty"
+            <Spinner
+                android:id="@+id/spinner_qualification"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_edit_text_green"
-                android:paddingHorizontal="16dp"
-                android:text="Reproductive Endocrinologist"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:paddingHorizontal="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -138,16 +156,13 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_experience"
+            <Spinner
+                android:id="@+id/spinner_experience"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_edit_text_green"
-                android:paddingHorizontal="16dp"
-                android:text="10+ years"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:paddingHorizontal="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -166,7 +181,8 @@
                 android:background="@drawable/bg_edit_text_green"
                 android:paddingHorizontal="16dp"
                 android:text="+1 (555) 123-4567"
-                android:inputType="phone"
+                android:inputType="number"
+                android:maxLength="10"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 

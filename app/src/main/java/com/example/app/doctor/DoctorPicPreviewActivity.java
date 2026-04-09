@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.app.R;
+import com.github.chrisbanes.photoview.PhotoView;
+
 
 public class DoctorPicPreviewActivity extends AppCompatActivity {
 
@@ -11,6 +13,15 @@ public class DoctorPicPreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_pic_preview);
+        
+        PhotoView ivPreview = findViewById(R.id.iv_preview);
+        String imageUriString = getIntent().getStringExtra("image_uri");
+        if (imageUriString != null) {
+            android.net.Uri imageUri = android.net.Uri.parse(imageUriString);
+            ivPreview.setImageURI(imageUri);
+        }
+
+
 
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
 
@@ -22,7 +33,7 @@ public class DoctorPicPreviewActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btn_continue).setOnClickListener(v -> {
-            Intent intent = new Intent(this, DoctorUploadVideoActivity.class);
+            Intent intent = new Intent(this, DoctorReadyAnalyzeActivity.class);
             startActivity(intent);
         });
     }

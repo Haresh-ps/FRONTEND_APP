@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="#E2E8F0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="Your Clinical Consultant"
+        android:textColor="#64748B"
+        android:textSize="12sp"
+        android:letterSpacing="0.1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_circle_light"
+            android:backgroundTint="#EEF2FF"
+            android:padding="12dp"
+            android:src="@drawable/ic_person"
+            app:tint="#4F46E5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_bs_doctor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Dr. Ethan Carter"
+                android:textColor="#1E293B"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_bs_doctor_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="+1 (555) 123-4567"
+                android:textColor="#64748B"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_call_doctor"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CALL"
+            android:textColor="#4F46E5"
+            android:fontFamily="sans-serif-bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="24dp"
+        android:background="#F1F5F9" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_bs_logout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:backgroundTint="#FEE2E2"
+        android:fontFamily="sans-serif-bold"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="#EF4444"
+        app:cornerRadius="12dp"
+        app:elevation="0dp" />
+
+</LinearLayout>

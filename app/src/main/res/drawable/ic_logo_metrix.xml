@@ -1,58 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="120dp"
-    android:height="120dp"
+    android:width="160dp"
+    android:height="160dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Outer Ring - Precision/Scanning Feel -->
+    <!-- North/South/East/West Connectors (Blue) -->
     <path
-        android:pathData="M50,5 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"
-        android:strokeWidth="2"
+        android:pathData="M50,15 L50,85 M15,50 L85,50"
+        android:strokeWidth="1.5"
+        android:strokeColor="#4F86F7" />
+
+    <!-- Top Blue Arc (Outer) -->
+    <path
+        android:pathData="M20,30 A45,45 0 0,1 80,30"
+        android:strokeWidth="2.5"
         android:strokeColor="#4F86F7"
+        android:strokeLineCap="round"
         android:fillAlpha="0" />
 
-    <!-- Scanning Progress Arcs -->
+    <!-- Central Blue Body -->
     <path
-        android:pathData="M50,10 A40,40 0 0,1 90,50"
-        android:strokeWidth="4"
-        android:strokeColor="#73E5EB"
-        android:strokeLineCap="round" />
-    <path
-        android:pathData="M10,50 A40,40 0 0,1 50,90"
-        android:strokeWidth="4"
-        android:strokeColor="#73E5EB"
-        android:strokeLineCap="round" />
-
-    <!-- Central Embryo Body -->
-    <path
-        android:pathData="M50,30 C38.95,30 30,38.95 30,50 C30,61.05 38.95,70 50,70 C61.05,70 70,61.05 70,50 C70,38.95 61.05,30 50,30"
+        android:pathData="M50,50 m-16,0 a16,16 0 1,1 32,0 a16,16 0 1,1 -32,0"
         android:fillColor="#4F86F7" />
 
-    <!-- Inner Core - AI Nucleus -->
+    <!-- AI Nucleus Core (White) -->
     <path
-        android:pathData="M50,42 C45.58,42 42,45.58 42,50 C42,54.42 45.58,58 50,58 C54.42,58 58,54.42 58,50 C58,45.58 54.42,42 50,42"
+        android:pathData="M50,50 m-6.5,0 a6.5,6.5 0 1,1 13,0 a6.5,6.5 0 1,1 -13,0"
         android:fillColor="#FFFFFF" />
 
-    <!-- Data Connectors -->
+    <!-- Cyan Data Orbits -->
     <path
-        android:pathData="M50,30 L50,15 M50,70 L50,85 M30,50 L15,50 M70,50 L85,50"
-        android:strokeWidth="2"
-        android:strokeColor="#4F86F7"
-        android:strokeLineCap="round" />
+        android:pathData="M50,22 A28,28 0 0,1 78,50"
+        android:strokeWidth="4"
+        android:strokeColor="#73E5EB"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+    <path
+        android:pathData="M50,22 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:fillColor="#73E5EB" />
 
-    <!-- Glowing Nodes -->
     <path
-        android:pathData="M50,15 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:pathData="M78,50 A28,28 0 0,1 50,78"
+        android:strokeWidth="4"
+        android:strokeColor="#73E5EB"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+    <path
+        android:pathData="M78,50 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:fillColor="#73E5EB" />
+
+    <path
+        android:pathData="M50,78 A28,28 0 0,1 22,50"
+        android:strokeWidth="4"
+        android:strokeColor="#73E5EB"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+    <path
+        android:pathData="M50,78 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
         android:fillColor="#73E5EB" />
     <path
-        android:pathData="M50,85 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
-        android:fillColor="#73E5EB" />
-    <path
-        android:pathData="M15,50 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
-        android:fillColor="#73E5EB" />
-    <path
-        android:pathData="M85,50 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:pathData="M22,50 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
         android:fillColor="#73E5EB" />
 
 </vector>

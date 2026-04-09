@@ -35,17 +35,17 @@ public class DoctorResultDisclaimerActivity extends AppCompatActivity {
     }
 
     private void saveReport() {
-        // In a real scenario, you would send the assessment data to the backend here.
-        // Assuming the assessment was already created in previous steps, 
-        // we might just need to trigger a 'save' or 'finalize' action if not already done.
-        
-        // For now, let's simulate a backend call success.
-        // If there's a specific 'Report' model/endpoint, we'd use it here.
+        // Results are already saved to the backend during analyzeAssessment call.
+        // We just need to finalize on the client side and clear the current session.
         
         Toast.makeText(this, "Report saved successfully!", Toast.LENGTH_SHORT).show();
         
-        // After saving, we can navigate to the Reports page to show it's there
+        // Clear current assessment data for next time
+        DoctorAssessmentData.getInstance().clear();
+        
+        // Navigate to the Reports page to show it's there
         Intent intent = new Intent(this, DoctorReportsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

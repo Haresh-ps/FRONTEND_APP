@@ -20,21 +20,25 @@ public class DoctorMetabolicActivityLevelActivity extends AppCompatActivity {
         ProgressBar pbLevel = findViewById(R.id.pb_activity_level);
         TextView tvDesc = findViewById(R.id.tv_description);
 
-        // Logic to determine activity level (e.g., from Intent extras)
-        String level = getIntent().getStringExtra("ACTIVITY_LEVEL");
-        if (level == null) level = "Moderate"; // Default
+        // Logic to determine activity level from real AI results
+        DoctorAssessmentData data = DoctorAssessmentData.getInstance();
+        String level = data.getViabilityPrediction(); 
+        if (level == null || level.isEmpty()) level = "Moderate Viability"; 
 
         tvLevel.setText(level);
 
-        if (level.equalsIgnoreCase("Moderate")) {
+        if (level.contains("Moderate")) {
             pbLevel.setProgress(50);
             tvDesc.setText("The embryo's metabolic activity is within the expected range, indicating healthy development. Continue monitoring for any significant changes.");
-        } else if (level.equalsIgnoreCase("Good")) {
-            pbLevel.setProgress(75);
+        } else if (level.contains("Good")) {
+            pbLevel.setProgress(85);
             tvDesc.setText("The embryo shows good metabolic activity, suggesting robust growth. High probability of continued healthy progression.");
-        } else if (level.equalsIgnoreCase("Excellent")) {
-            pbLevel.setProgress(95);
-            tvDesc.setText("Exceptional metabolic activity detected. The embryo is thriving and exhibits optimal development indicators.");
+        } else if (level.contains("Low") || level.contains("Poor")) {
+            pbLevel.setProgress(25);
+            tvDesc.setText("Reduced metabolic activity detected. The embryo may require further stabilization or extended culture time.");
+        } else {
+            pbLevel.setProgress(70);
+            tvDesc.setText("General assessment indicates stable developmental markers. Proceed with standard clinical protocol.");
         }
 
         findViewById(R.id.btn_next).setOnClickListener(v -> {

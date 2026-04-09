@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,16 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.App">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <activity
             android:name=".doctor.DoctorSplashActivity"
@@ -74,7 +86,7 @@
             android:exported="true" />
         <activity
             android:name=".doctor.DoctorProfileActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".doctor.DoctorEditProfileActivity"
             android:exported="false" />
@@ -127,12 +139,6 @@
             android:name=".doctor.DoctorPicPreviewActivity"
             android:exported="true" />
         <activity
-            android:name=".doctor.DoctorUploadVideoActivity"
-            android:exported="true" />
-        <activity
-            android:name=".doctor.DoctorUploadProgressActivity"
-            android:exported="true" />
-        <activity
             android:name=".doctor.DoctorReadyAnalyzeActivity"
             android:exported="true" />
         <activity
@@ -174,6 +180,12 @@
         <activity
             android:name=".doctor.DoctorForgotPasswordActivity"
             android:exported="true" />
+        <activity
+            android:name=".doctor.PatientLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".doctor.PatientDashboardActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

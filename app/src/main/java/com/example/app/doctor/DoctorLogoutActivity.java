@@ -12,10 +12,13 @@ public class DoctorLogoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_logout);
 
-        findViewById(R.id.iv_close).setOnClickListener(v -> finish());
         findViewById(R.id.btn_cancel).setOnClickListener(v -> finish());
 
         findViewById(R.id.btn_yes_logout).setOnClickListener(v -> {
+            // Clear Authentication Token
+            RetrofitClient.setAuthToken(null);
+            getSharedPreferences("DoctorProfile", MODE_PRIVATE).edit().remove("auth_token").apply();
+
             Intent intent = new Intent(DoctorLogoutActivity.this, DoctorLoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

@@ -33,15 +33,26 @@ public class DoctorPatientDetailsActivity extends AppCompatActivity {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, month1, dayOfMonth) -> {
-                String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%d", month1 + 1, dayOfMonth, year1);
+                // Fixed Format: DD/MM/YYYY
+                String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%d", dayOfMonth, month1 + 1, year1);
                 etDob.setText(selectedDate);
                 
-                // Optional: Auto-calculate age
-                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                int age = currentYear - year1;
+                // Auto-calculate age accurately
+                Calendar today = Calendar.getInstance();
+                Calendar birthDate = Calendar.getInstance();
+                birthDate.set(year1, month1, dayOfMonth);
+
+                int age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+                if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
+                    age--;
+                }
+                if (age < 0) age = 0;
                 etAge.setText(String.valueOf(age));
                 
             }, year, month, day);
+            
+            // Prevent future dates
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
             datePickerDialog.show();
         });
 
@@ -70,6 +81,10 @@ public class DoctorPatientDetailsActivity extends AppCompatActivity {
             DoctorAssessmentData.getInstance().setPatientName(name);
             DoctorAssessmentData.getInstance().setPatientDob(dob);
             DoctorAssessmentData.getInstance().setPatientAge(age);
+            
+            // Set Assessment Date
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
+            DoctorAssessmentData.getInstance().setAssessmentDate(sdf.format(new java.util.Date()));
 
             // Navigate to Question 1
             Intent intent = new Intent(DoctorPatientDetailsActivity.this, DoctorQuestion1Activity.class);

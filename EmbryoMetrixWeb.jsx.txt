@@ -1,0 +1,557 @@
+/* 
+  EMBRYO METRIX WEB - V3 (STABLE & FEATURE RICH)
+  COPY THE ENTIRE CONTENT BELOW INTO YOUR REACT PROJECT (e.g., App.jsx) 
+  Dependencies: Tailwind CSS, Lucide-React
+*/
+
+import React, { useState } from 'react';
+import { 
+  Home, PlusSquare, FileText, User, ChevronLeft, ChevronRight, Microscope, 
+  Activity, Info, LogOut, Clock, FlaskConical, Zap, CheckCircle2, 
+  Camera, Video, Database, MapPin, Phone, Mail, Edit2, Save, X, Plus, ArrowRight
+} from 'lucide-react';
+
+// --- SUB-COMPONENTS (Defined outside to prevent focus loss) ---
+
+const LoginView = ({ onLogin }) => (
+  <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC] px-4">
+    <div className="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl p-12 border border-blue-50">
+      <div className="text-center mb-10">
+        <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-400 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-blue-200">
+          <FlaskConical className="text-white w-12 h-12" />
+        </div>
+        <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase">Sign In</h2>
+        <p className="text-gray-400 font-bold text-xs mt-3 uppercase tracking-[0.3em]">Embryo Metrix AI Intelligence</p>
+      </div>
+      <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); onLogin(); }}>
+        <div>
+          <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Email Address</label>
+          <input type="email" className="w-full px-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="doctor@clinic.com" required />
+        </div>
+        <div>
+          <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">Password</label>
+          <input type="password" className="w-full px-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all font-bold text-gray-700" placeholder="••••••••" required />
+        </div>
+        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-6 rounded-[1.5rem] shadow-2xl shadow-blue-200 transition-all active:scale-95 uppercase tracking-[0.2em] mt-4">Verify Identity</button>
+      </form>
+    </div>
+  </div> 
+);t
+
+const DashboardView = ({ profile, onStartAssessment, onViewReport, recentReports }) => (
+  <div className="space-y-12 animate-in fade-in slide-in-from-bottom-5 duration-700">
+    <header className="flex justify-between items-end">
+      <div>
+        <h1 className="text-5xl font-black text-gray-900 tracking-tighter uppercase leading-none">Dashboard</h1>
+        <p className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] mt-4">Welcome back, {profile.name}</p>
+      </div>
+
+    </header>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div onClick={onStartAssessment} className="group bg-blue-600 p-10 rounded-[3rem] shadow-2xl shadow-blue-100 cursor-pointer hover:scale-[1.02] transition-all relative overflow-hidden flex flex-col justify-between min-h-[320px]">
+        <div className="relative z-10 w-20 h-20 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center text-white mb-10">
+          <PlusSquare size={40} />
+        </div>
+        <div className="relative z-10">
+          <h3 className="text-3xl font-black text-white uppercase leading-none mb-4 tracking-tighter">New<br/>Assessment</h3>
+          <p className="text-blue-100 font-bold text-sm tracking-wide">Start a fresh AI analysis for spent media markers.</p>
+        </div>
+        <Activity className="absolute -right-10 -bottom-10 w-48 h-48 text-white/10" />
+      </div>
+
+      <div onClick={() => onViewReport(null)} className="group bg-white p-10 rounded-[3rem] shadow-sm border-2 border-gray-50 cursor-pointer hover:shadow-2xl hover:border-blue-100 transition-all flex flex-col justify-between min-h-[320px]">
+        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-10 group-hover:bg-blue-600 group-hover:text-white transition-all">
+          <FileText size={32} />
+        </div>
+        <div>
+          <h3 className="text-3xl font-black text-gray-900 uppercase leading-none mb-4 tracking-tighter">Clinical<br/>Reports</h3>
+          <p className="text-gray-400 font-bold text-sm tracking-wide">Access previous analysis results and clinical data archives.</p>
+        </div>
+      </div>
+
+      <div className="bg-white p-10 rounded-[3rem] shadow-sm border-2 border-gray-100 flex flex-col justify-between min-h-[320px] transition-all hover:shadow-2xl hover:border-blue-100">
+        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-10">
+ <Clock size={32} />
+        </div>
+        <div>
+          <h3 className="text-3xl font-black text-gray-900 uppercase leading-none mb-4 tracking-tighter">Shift<br />Time</h3>
+          <p className="text-4xl font-black text-blue-600">08:34 AM</p>
+          <p className="text-gray-400 font-bold text-sm tracking-wide mt-4 uppercase tracking-widest">Global Session Active</p>
+        </div>
+      </div>
+    </div>
+
+    <section>
+       <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter mb-8">Recent Activity</h2>
+       <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-50 shadow-sm">
+          {recentReports.map((report, i) => (
+            <div key={report.id} onClick={() => onViewReport(report)} className={`flex items-center justify-between p-8 ${i !== recentReports.length-1 ? 'border-b border-gray-50' : ''} hover:bg-gray-50 transition-all cursor-pointer group`}>
+               <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 font-black text-xs uppercase tracking-tighter leading-none text-center group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">R<br/>ID</div>
+                  <div>
+                     <p className="font-black text-lg text-gray-900 leading-none mb-1 group-hover:text-blue-600 transition-colors">{report.patientName}</p>
+                     <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{report.id} • {report.date}</p>
+                  </div>
+               </div>
+               <div className="flex items-center gap-8">
+                  <div className="text-right">
+                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Confidence</p>
+                     <p className={`font-black text-xl ${report.score > 90 ? 'text-blue-600' : 'text-emerald-500'}`}>{report.score}%</p>
+                  </div>
+                  <ChevronRight className="text-gray-300 group-hover:text-blue-600 transition-colors" />
+               </div>
+            </div>
+          ))}
+       </div>
+    </section>
+  </div>
+);
+
+const ReportsListView = ({ reports, onViewReport, onNewAssessment }) => (
+  <div className="space-y-8 animate-in fade-in duration-700">
+    <div className="flex justify-between items-center">
+      <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase">Clinical Reports</h2>
+      <button onClick={onNewAssessment} className="bg-blue-600 text-white p-4 rounded-2xl shadow-xl shadow-blue-100 active:scale-95 transition-all">
+        <Plus size={24} strokeWidth={3} />
+      </button>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
+      {reports.map(report => (
+        <div key={report.id} onClick={() => onViewReport(report)} className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:border-blue-100 transition-all cursor-pointer group">
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Report ID</p>
+              <p className="font-black text-gray-900">{report.id}</p>
+            </div>
+            <div className={`px-4 py-2 rounded-xl font-black text-xs uppercase tracking-widest ${report.score > 90 ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
+              {report.score}% Match
+            </div>
+          </div>
+          <h3 className="text-2xl font-black text-gray-900 uppercase tracking-tight mb-2 group-hover:text-blue-600 transition-colors">{report.patientName}</h3>
+          <div className="flex gap-4 items-center text-gray-400 font-bold text-xs uppercase tracking-widest">
+            <span>{report.date}</span>
+            <span>•</span>
+            <span>{report.age} YR</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const AssessmentView = ({ step, data, setData, onNext, onPrev, onSkip }) => {
+  if (step === 0) {
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-3xl mx-auto">
+        <div className="bg-white rounded-[2.5rem] p-12 shadow-xl border border-gray-100">
+          <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mb-2 text-center">Patient Intake</h2>
+          <p className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-12 text-center">Registry system for clinical reporting</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Patient ID</label>
+                <input value={data.patientId} onChange={e => setData({...data, patientId: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" placeholder="e.g. P90210" />
+             </div>
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Patient Name</label>
+                <input value={data.patientName} onChange={e => setData({...data, patientName: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" placeholder="First & Last Name" />
+             </div>
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Date of Birth</label>
+                <input type="date" value={data.dob} onChange={e => setData({...data, dob: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" />
+             </div>
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-3">Patient Age</label>
+                <input type="number" value={data.age} onChange={e => setData({...data, age: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-bold focus:border-blue-500 outline-none" placeholder="Years" />
+             </div>
+          </div>
+        </div>
+        <button onClick={() => onNext()} className="w-full bg-blue-600 text-white font-black py-6 rounded-[1.5rem] shadow-2xl shadow-blue-200 transition-all active:scale-95 uppercase tracking-[0.2em]">Start Assessment Flow</button>
+      </div>
+    );
+  }
+
+  if (step >= 1 && step <= 6) {
+    const questions = [
+      { title: "Embryo Development Day", options: ["D3", "D5", "D6"], key: "q1_day" },
+      { title: "Culture Duration", isInput: true, options: ["Hours", "Days"], key: "q2_duration", unitKey: "q2_unit" },
+      { title: "Culture Medium Used", options: ["G-1 PLUS (Vitrolife)", "G-2 PLUS (Vitrolife)", "Stage 1-Step", "Origio Sequential", "Other"], key: "q3_medium" },
+      { title: "Media Color Change", options: ["None", "Mild", "Significant"], key: "q4_color" },
+      { title: "pH Deviation", options: ["Normal", "Slight", "High"], key: "q5_ph" },
+      { title: "Visual Clarity", options: ["Clear", "Slightly turbid", "Turbid"], key: "q6_clarity" },
+      { title: "Clinical Notes", isNotes: true, key: "notes" }
+    ];
+    const q = questions[step - 1];
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-2xl mx-auto">
+        <div className="bg-white rounded-[3rem] p-12 shadow-xl border border-gray-100">
+           <div className="flex justify-between items-center mb-10">
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Step {step} / 6</span>
+              <div className="flex gap-2">
+                 {[1,2,3,4,5,6].map(i => <div key={i} className={`h-1.5 w-8 rounded-full ${i <= step ? 'bg-blue-600' : 'bg-gray-100'}`} />)}
+              </div>
+           </div>
+           <h2 className="text-4xl font-black text-gray-900 tracking-tighter mb-4 leading-tight">{q.title}</h2>
+           {q.isInput ? (
+             <div className="space-y-6">
+                <div className="flex gap-2 bg-gray-50 p-2 rounded-2xl">
+                   {q.options.map(opt => (
+                     <button key={opt} onClick={() => setData({...data, [q.unitKey]: opt})} className={`flex-1 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${data[q.unitKey] === opt ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>{opt}</button>
+                   ))}
+                </div>
+                <input type="number" value={data[q.key]} onChange={e => setData({...data, [q.key]: e.target.value})} className="w-full bg-gray-50 border-2 border-gray-100 p-8 rounded-[2rem] font-black text-4xl text-center focus:border-blue-500 outline-none" placeholder="0" />
+             </div>
+           ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {q.options.map(opt => (
+                  <button key={opt} onClick={() => setData({...data, [q.key]: opt})} className={`relative overflow-hidden group border-4 rounded-[2.5rem] p-8 font-black transition-all active:scale-95 ${data[q.key] === opt ? 'border-blue-600 bg-blue-50 text-blue-600 shadow-xl shadow-blue-100' : 'border-gray-50 bg-gray-50 hover:bg-white hover:border-gray-100 text-gray-400 hover:text-gray-900'}`}>
+                    <span className="block text-xl uppercase tracking-widest">{opt}</span>
+                    {data[q.key] === opt && <CheckCircle2 className="absolute top-4 right-4 text-blue-600" size={24} />}
+                  </button>
+                ))}
+             </div>
+           )}
+           {q.isNotes && (
+             <textarea 
+               value={data[q.key]} 
+               onChange={e => setData({...data, [q.key]: e.target.value})} 
+               className="w-full bg-gray-50 border-2 border-gray-100 p-8 rounded-[2rem] font-bold text-lg min-h-[200px] focus:border-blue-500 outline-none" 
+               placeholder="Enter clinical observations, morphology details, or patient history..." 
+             />
+           )}
+        </div>
+        <div className="flex gap-4">
+           <button onClick={onPrev} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Back</button>
+           <button onClick={onNext} className="flex-[2] py-6 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-2xl shadow-blue-200 transition-all active:scale-95">Next Step</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === 7 || step === 8) {
+    const type = step === 7 ? 'photo' : 'video';
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-2xl mx-auto">
+        <div className="bg-white rounded-[3rem] p-12 shadow-xl border border-gray-100">
+           <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mb-2">Upload {type === 'photo' ? 'Spent Media' : 'Clinical video'}</h2>
+           <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px] mb-12">{type === 'photo' ? 'Primary visual marker extraction' : 'Optional motion analysis data'}</p>
+           <div className="border-4 border-dashed border-gray-100 rounded-[3rem] p-20 flex flex-col items-center justify-center gap-6 group hover:border-blue-400 transition-all cursor-pointer bg-gray-50/50">
+              <div className="w-24 h-24 bg-white rounded-3xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all group-hover:scale-110 duration-500">
+                 {type === 'photo' ? <Camera size={40} /> : <Video size={40} />}
+              </div>
+              <p className="font-black text-xl text-gray-900 uppercase tracking-tighter text-center">Select {type} File</p>
+           </div>
+        </div>
+        <div className="flex gap-4">
+           {type === 'video' ? <button onClick={() => onNext()} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Skip Video</button> : <button onClick={onPrev} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Back</button>}
+           <button onClick={onNext} className="flex-[2] py-6 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-2xl shadow-blue-200 transition-all active:scale-95">Next Step</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === 9) {
+    return (
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-2xl mx-auto">
+        <div className="bg-white rounded-[3rem] p-12 shadow-xl border border-gray-100">
+           <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase mb-2 text-center">Clinical Notes</h2>
+           <p className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-10 text-center">Add context for AI evaluation</p>
+           <textarea 
+               value={data.notes} 
+               onChange={e => setData({...data, notes: e.target.value})} 
+               className="w-full bg-gray-50 border-2 border-gray-100 p-8 rounded-[2rem] font-bold text-lg min-h-[250px] focus:border-blue-500 outline-none" 
+               placeholder="Describe embryo quality, developmental milestones, or any patient-specific factors..." 
+           />
+        </div>
+        <div className="flex gap-4">
+           <button onClick={onPrev} className="flex-1 py-6 border-2 border-gray-100 rounded-2xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-white hover:text-gray-900 transition-all">Back</button>
+           <button onClick={onNext} className="flex-[2] py-6 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-2xl shadow-blue-200 transition-all active:scale-95">Complete Assessment</button>
+        </div>
+      </div>
+    );
+  }
+};
+
+const ProfileView = ({ profile, setProfile, isEditing, setIsEditing }) => (
+  <div className="max-w-4xl mx-auto animate-in fade-in duration-700 space-y-12">
+    <header className="flex justify-between items-center">
+      <h1 className="text-5xl font-black text-gray-900 tracking-tighter uppercase">My Profile</h1>
+      {!isEditing ? (
+        <button onClick={() => setIsEditing(true)} className="flex items-center gap-2 bg-white border-2 border-gray-100 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm"><Edit2 size={16} /> Edit</button>
+      ) : (
+        <div className="flex gap-3">
+           <button onClick={() => setIsEditing(false)} className="flex items-center gap-2 bg-gray-50 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs text-gray-500"><X size={16}/></button>
+           <button onClick={() => setIsEditing(false)} className="flex items-center gap-2 bg-blue-600 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs text-white shadow-xl shadow-blue-200"><Save size={16} /> Save</button>
+        </div>
+      )}
+    </header>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+       <div className="bg-white rounded-[3rem] p-10 border border-gray-50 shadow-sm flex flex-col items-center">
+          <div className="w-48 h-48 bg-gray-100 rounded-full border-8 border-white shadow-xl flex items-center justify-center text-gray-300 mb-8"><User size={80} /></div>
+          {isEditing ? (
+            <input className="w-full bg-gray-50 border-2 border-blue-50 p-4 rounded-2xl font-black text-xl text-center focus:border-blue-600 outline-none" value={profile.name} onChange={e => setProfile({...profile, name: e.target.value})} />
+          ) : (
+            <div className="text-center">
+              <h3 className="text-3xl font-black text-gray-900 tracking-tighter uppercase mb-2">{profile.name}</h3>
+              <p className="text-blue-600 font-bold uppercase tracking-widest text-xs">{profile.specialty}</p>
+            </div>
+          )}
+       </div>
+       <div className="lg:col-span-2 bg-white rounded-[3rem] p-10 border border-gray-50 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12">
+          {[
+            { label: 'Clinic', key: 'clinicName', icon: Database },
+            { label: 'Address', key: 'address', icon: MapPin },
+            { label: 'Phone', key: 'phone', icon: Phone },
+            { label: 'Email', key: 'email', icon: Mail }
+          ].map(item => (
+            <div key={item.key} className="flex gap-5">
+               <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 flex-shrink-0"><item.icon size={22} /></div>
+               <div className="w-full">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
+                  {isEditing ? <input className="w-full bg-gray-50 border-b-2 border-gray-100 p-1 font-bold outline-none" value={profile[item.key]} onChange={e => setProfile({...profile, [item.key]: e.target.value})} /> : <p className="font-black text-gray-900">{profile[item.key]}</p>}
+               </div>
+            </div>
+          ))}
+       </div>
+    </div>
+  </div>
+);
+
+const ResultsView = ({ report, onBackToReports }) => {
+  const data = report || { patientName: "Jane Doe", id: "NEW", age: 30, q1_day: 'D5', q6_clarity: 'Clear' };
+  return (
+    <div className="max-w-4xl mx-auto space-y-10 animate-in zoom-in-95 duration-700 pb-20">
+       <button onClick={onBackToReports} className="flex items-center gap-3 font-black uppercase text-[10px] tracking-widest text-gray-400 hover:text-blue-600 transition-colors">
+         <ChevronLeft size={16} /> Back to Archive
+       </button>
+       <section className="bg-white rounded-[4rem] p-12 shadow-2xl shadow-blue-50 border border-gray-50 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-full -mr-32 -mt-32 blur-3xl opacity-50" />
+          <h2 className="text-5xl font-black text-gray-900 tracking-tighter mb-12 uppercase leading-none">Analysis<br/>Report</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
+             <div><p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Patient</p><p className="font-black text-2xl text-gray-900 tracking-tight">{data.patientName}</p></div>
+             <div><p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Report ID</p><p className="font-black text-2xl text-gray-900 tracking-tight">{data.id}</p></div>
+             <div><p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Patient Age</p><p className="font-black text-2xl text-gray-900 tracking-tight">{data.age} YR</p></div>
+             <div>
+               <p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Match Score</p>
+               <div className="flex items-end gap-1"><p className="font-black text-4xl text-blue-600 leading-none">{data.score || 92}</p><p className="font-black text-xl text-blue-300">%</p></div>
+             </div>
+          </div>
+       </section>
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="bg-white p-10 rounded-[3.5rem] border border-gray-50 shadow-sm space-y-10">
+             <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 uppercase font-black text-[10px] tracking-[0.2em] text-blue-600"><Microscope size={20} /> Nutrient Markers</div>
+                <span className="bg-emerald-50 text-emerald-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm shadow-emerald-100">Optimal</span>
+             </div>
+             <div className="space-y-8">
+                {[{name: "Glucose", v: "120 mg/dL", p: 85}, {name: "Proteins", v: "85 mg/dL", p: 72}, {name: "pH Balance", v: "Normal", p: 90}].map(m => (
+                  <div key={m.name}>
+                    <div className="flex justify-between mb-3 items-end font-black uppercase text-[10px] tracking-widest">
+                       <span className="text-gray-900">{m.name}</span>
+                       <span className="text-gray-400">{m.v}</span>
+                    </div>
+                    <div className="h-4 w-full bg-gray-50 rounded-full overflow-hidden p-1 shadow-inner ring-1 ring-gray-100/50">
+                       <div className="h-full bg-blue-600 rounded-full shadow-lg" style={{width: `${m.p}%`}} />
+                    </div>
+                  </div>
+                ))}
+             </div>
+          </div>
+          <div className="bg-[#1e1b4b] p-10 rounded-[3.5rem] text-white flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+             <Zap className="absolute -right-10 -bottom-10 w-48 h-48 text-blue-400/10 group-hover:scale-110 transition-transform duration-[2s]" strokeWidth={3} />
+             <div className="relative z-10">
+               <div className="font-black text-4xl uppercase leading-none tracking-tighter mb-8 group-hover:text-blue-400 transition-colors">Neural AI:<br/>Optimal Viability</div>
+               <p className="text-blue-100 text-sm font-medium leading-relaxed tracking-wide opacity-80 group-hover:opacity-100 transition-opacity">Model suggest strong metabolic markers for {data.q1_day || 'D5'} blastocyst. High probability of success based on {data.q6_clarity || 'Clear'} media turbidity.</p>
+             </div>
+             <div className="flex gap-4 relative z-10">
+               <button className="flex-1 bg-white text-blue-900 font-black py-5 rounded-3xl uppercase tracking-widest text-[10px] shadow-xl hover:bg-blue-50 transition-all">Export Report</button>
+               <button className="w-16 h-16 bg-blue-600 flex items-center justify-center rounded-3xl shadow-xl hover:bg-blue-500 transition-all"><Plus size={24} /></button>
+             </div>
+          </div>
+       </div>
+    </div>
+  );
+};
+
+// --- MAIN WRAPPER COMPONENT ---
+
+const EmbryoMetrixWeb = () => {
+  const [currentView, setCurrentView] = useState('login'); 
+  const [assessmentStep, setAssessmentStep] = useState(0);
+  const [selectedReport, setSelectedReport] = useState(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+
+  // ASSESSMENT STATE
+  const [assessmentData, setAssessmentData] = useState({
+    patientId: '', patientName: '', dob: '', age: '',
+    q1_day: '', q2_duration: '', q2_unit: 'Hours',
+    q3_medium: '', q4_color: '', q5_ph: '', q6_clarity: '',
+    photo: null, video: null, notes: ''
+  });
+
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessage, setChatMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState([
+    { role: 'ai', text: 'Hello! I am your AI assistant. How can I help with your embryo assessments today?' }
+  ]);
+
+  const handleSendMessage = () => {
+    if (!chatMessage.trim()) return;
+    const newHistory = [...chatHistory, { role: 'user', text: chatMessage }];
+    setChatHistory(newHistory);
+    // Mock response logic
+    setTimeout(() => {
+        let response = "I'm analyzing your data. Please wait...";
+        if (chatMessage.toLowerCase().includes('viability')) response = "Viability is calculated using media markers and morphology.";
+        if (chatMessage.toLowerCase().includes('score')) response = "High scores indicate strong metabolic activity.";
+        setChatHistory([...newHistory, { role: 'ai', text: response }]);
+    }, 1000);
+    setChatMessage('');
+  };
+
+  // PROFILE STATE
+  const [profile, setProfile] = useState({
+    name: 'Dr. Amelia Chen', specialty: 'Reproductive Endocrinologist',
+    experience: '10+ years', clinicName: 'Advanced Fertility Center',
+    address: '123 Main Street, Anytown, USA', phone: '+1 (555) 123-4567',
+    email: 'amelia.chen@clinic.com'
+  });
+
+  // MOCK DATA STORE
+  const [reportsStore, setReportsStore] = useState([
+    { id: "R-9021", patientName: "Sophia Carter", date: "24 Feb 2026", score: 95, age: 36, q1_day: 'D5', q6_clarity: 'Clear' },
+    { id: "R-9018", patientName: "Marcus Reid", date: "22 Feb 2026", score: 82, age: 41, q1_day: 'D3', q6_clarity: 'Slightly turbid' },
+    { id: "R-8995", patientName: "Elena Vance", date: "20 Feb 2026", score: 71, age: 29, q1_day: 'D6', q6_clarity: 'Turbid' },
+  ]);
+
+  // NAVIGATION HANDLERS
+  const startNewAssessment = () => {
+    setAssessmentData({ patientId: '', patientName: '', dob: '', age: '', q1_day: '', q2_duration: '', q2_unit: 'Hours', q3_medium: '', q4_color: '', q5_ph: '', q6_clarity: '', photo: null, video: null, notes: '' });
+    setAssessmentStep(0);
+    setCurrentView('assessment');
+    setSelectedReport(null);
+  };
+
+  const openReportDetail = (report) => {
+    setSelectedReport(report);
+    setCurrentView('reportDetail');
+  };
+
+  const submitAssessment = () => {
+    const newReport = {
+      id: `R-${Math.floor(Math.random() * 10000)}`,
+      patientName: assessmentData.patientName || "Anonymous",
+      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      score: Math.floor(Math.random() * 20) + 80,
+      age: assessmentData.age || 30,
+      q1_day: assessmentData.q1_day,
+      q6_clarity: assessmentData.q6_clarity,
+      notes: assessmentData.notes
+    };
+    setReportsStore([newReport, ...reportsStore]);
+    openReportDetail(newReport);
+  };
+
+  // RENDER LOGIC
+  if (currentView === 'login') return <LoginView onLogin={() => setCurrentView('dashboard')} />;
+
+  return (
+    <div className="min-h-screen bg-[#FBFCFE] text-gray-900 selection:bg-blue-100 font-sans">
+      <div className="flex md:flex-row flex-col min-h-screen">
+        
+        {/* SIDE BAR */}
+        <nav className="md:w-32 bg-white border-r border-gray-100 flex md:flex-col items-center py-10 px-6 gap-8 sticky top-0 md:h-screen z-50">
+          <div onClick={() => setCurrentView('dashboard')} className="w-14 h-14 bg-blue-600 rounded-[1.2rem] flex items-center justify-center text-white font-black text-2xl shadow-2xl cursor-pointer">EM</div>
+          <div className="flex md:flex-col gap-6">
+             {[
+               { id: 'dashboard', icon: Home },
+               { id: 'reportsList', icon: FileText },
+               { id: 'profile', icon: User }
+             ].map(item => (
+               <button key={item.id} onClick={() => { setCurrentView(item.id); setSelectedReport(null); }} className={`p-4 rounded-2xl transition-all ${currentView === item.id || (item.id === 'reportsList' && currentView === 'reportDetail') ? 'bg-blue-600 text-white shadow-2xl shadow-blue-200' : 'text-gray-300 hover:text-blue-600 hover:bg-blue-50'}`}>
+                 <item.icon size={26} strokeWidth={3} />
+               </button>
+             ))}
+             <button onClick={startNewAssessment} className="p-4 rounded-2xl text-blue-600 bg-blue-50 border-2 border-blue-100 hover:bg-blue-600 hover:text-white transition-all">
+                <Plus size={26} strokeWidth={3} />
+             </button>
+          </div>
+          <button onClick={() => setCurrentView('login')} className="mt-auto p-4 text-gray-200 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all group">
+            <LogOut size={26} strokeWidth={3} />
+          </button>
+        </nav>
+
+        {/* CONTENT */}
+        <main className="flex-1 p-8 md:p-20 max-w-7xl mx-auto w-full md:pb-20 pb-40">
+           {currentView === 'dashboard' && <DashboardView profile={profile} onStartAssessment={startNewAssessment} onViewReport={openReportDetail} recentReports={reportsStore.slice(0, 3)} />}
+           {currentView === 'reportsList' && <ReportsListView reports={reportsStore} onViewReport={openReportDetail} onNewAssessment={startNewAssessment} />}
+           {currentView === 'reportDetail' && <ResultsView report={selectedReport} onBackToReports={() => setCurrentView('reportsList')} />}
+           {currentView === 'profile' && <ProfileView profile={profile} setProfile={setProfile} isEditing={isEditingProfile} setIsEditing={setIsEditingProfile} />}
+           {currentView === 'assessment' && (
+             <AssessmentView 
+               step={assessmentStep} 
+               data={assessmentData} 
+               setData={setAssessmentData} 
+                onNext={() => assessmentStep < 9 ? setAssessmentStep(assessmentStep + 1) : submitAssessment()} 
+                onPrev={() => setAssessmentStep(Math.max(0, assessmentStep - 1))}
+              />
+           )}
+        </main>
+
+        {/* AI CHATBOT FLOAT */}
+        <div className="fixed bottom-6 right-6 z-[100] md:flex hidden flex-col items-end gap-4">
+            {chatOpen && (
+                <div className="w-96 h-[500px] bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5">
+                    <div className="p-6 bg-blue-600 text-white flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                            <Zap size={20} />
+                            <span className="font-black uppercase tracking-widest text-xs">AI Assistant</span>
+                        </div>
+                        <button onClick={() => setChatOpen(false)}><X size={20} /></button>
+                    </div>
+                    <div className="flex-1 p-6 overflow-y-auto space-y-4">
+                        {chatHistory.map((h, i) => (
+                            <div key={i} className={`flex ${h.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`max-w-[80%] p-4 rounded-2xl font-bold text-sm ${h.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}>
+                                    {h.text}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="p-6 border-t border-gray-50 flex gap-2">
+                        <input value={chatMessage} onChange={e => setChatMessage(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleSendMessage()} className="flex-1 bg-gray-50 p-4 rounded-xl font-bold text-sm outline-none" placeholder="Ask AI..." />
+                        <button onClick={handleSendMessage} className="bg-blue-600 text-white p-4 rounded-xl"><ArrowRight size={20} /></button>
+                    </div>
+                </div>
+            )}
+            <button onClick={() => setChatOpen(!chatOpen)} className="w-20 h-20 bg-[#1e1b4b] text-white rounded-3xl shadow-2xl flex items-center justify-center hover:scale-110 transition-all group">
+                <Zap size={32} className="group-hover:text-blue-400 transition-colors" />
+            </button>
+        </div>
+
+        {/* MOBILE BOTTOM NAV */}
+        <div className="md:hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-xl border border-gray-100 rounded-[2.5rem] py-3 px-6 shadow-2xl z-[100] flex justify-between items-center">
+           <button onClick={() => setCurrentView('dashboard')} className={`p-3 rounded-2xl ${currentView === 'dashboard' ? 'text-blue-600 bg-blue-50' : 'text-gray-400'}`}><Home size={24} strokeWidth={3}/></button>
+           <button onClick={startNewAssessment} className="p-5 bg-blue-600 text-white rounded-[1.5rem] shadow-xl active:scale-90 transition-all -translate-y-8 border-8 border-[#FBFCFE]"><PlusSquare size={28} strokeWidth={3}/></button>
+           <button onClick={() => setCurrentView('reportsList')} className={`p-3 rounded-2xl ${currentView === 'reportsList' || currentView === 'reportDetail' ? 'text-blue-600 bg-blue-50' : 'text-gray-400'}`}><FileText size={24} strokeWidth={3}/></button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EmbryoMetrixWeb;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

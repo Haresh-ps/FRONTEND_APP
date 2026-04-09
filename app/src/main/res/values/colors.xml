@@ -9,4 +9,7 @@
     <color name="button_blue">#5BB0E5</color>
     <color name="text_secondary">#CCCCCC</color>
     <color name="bg_light">#F8FAFC</color>
+    <color name="blue_brand">#4F86F7</color>
+    <color name="cyan_brand">#73E5EB</color>
+    <color name="bg_grey_light">#F1F5F9</color>
 </resources>

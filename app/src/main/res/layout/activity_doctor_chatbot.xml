@@ -82,6 +82,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/chat_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="16dp"
@@ -90,11 +91,12 @@
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <LinearLayout
+            android:id="@+id/chat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- AI Message 1 -->
+            <!-- AI Welcome Message -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,7 +106,7 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="12dp"
                     android:src="@drawable/chatbot" />
 
                 <TextView
@@ -122,131 +124,7 @@
                 <View android:layout_width="40dp" android:layout_height="0dp" />
             </LinearLayout>
 
-            <!-- User Message 1 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <View android:layout_width="40dp" android:layout_height="0dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_chat_bubble_user"
-                    android:padding="16dp"
-                    android:text="Can you help me understand my follicle tracking results from this morning? I've uploaded the image."
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:lineSpacingExtra="4dp" />
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/human" />
-            </LinearLayout>
-
-            <!-- AI Message 2 with Card -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/chatbot" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_chat_bubble_ai"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Of course. I've analyzed your ultrasound scan. Based on the measurements:"
-                        android:textColor="#334155"
-                        android:textSize="15sp"
-                        android:lineSpacingExtra="4dp" />
-
-                    <!-- Measurement Card -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/bg_input_field"
-                        android:backgroundTint="#F0F7FF"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Right Ovary"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="3 Follicles (>18mm)"
-                                android:textColor="#4F86F7"
-                                android:textSize="14sp"
-                                android:fontFamily="sans-serif-black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Left Ovary"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="2 Follicles (>17mm)"
-                                android:textColor="#4F86F7"
-                                android:textSize="14sp"
-                                android:fontFamily="sans-serif-black" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="The response looks optimal for this stage of your cycle. Would you like me to note this in your tracker?"
-                        android:textColor="#334155"
-                        android:textSize="15sp"
-                        android:lineSpacingExtra="4dp" />
-
-                </LinearLayout>
-
-                <View android:layout_width="40dp" android:layout_height="0dp" />
-            </LinearLayout>
+            <!-- Dynamic messages will be added here -->
 
         </LinearLayout>
     </ScrollView>
@@ -269,13 +147,8 @@
             android:orientation="horizontal"
             android:paddingHorizontal="12dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:padding="8dp"
-                android:src="@drawable/mic" />
-
             <EditText
+                android:id="@+id/et_message"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

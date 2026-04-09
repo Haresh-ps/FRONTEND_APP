@@ -30,8 +30,11 @@ public class DoctorQuestion2Activity extends AppCompatActivity {
         findViewById(R.id.btn_back_bottom).setOnClickListener(v -> finish());
         
         findViewById(R.id.btn_next).setOnClickListener(v -> {
-            String value = etDuration.getText().toString();
-            if (value.isEmpty()) value = "0";
+            String value = etDuration.getText().toString().trim();
+            if (value.isEmpty()) {
+                android.widget.Toast.makeText(this, "Please enter the duration", android.widget.Toast.LENGTH_SHORT).show();
+                return;
+            }
             DoctorAssessmentData.getInstance().setCultureDuration(value + " " + selectedUnit.toLowerCase());
 
             Intent intent = new Intent(this, DoctorQuestion3Activity.class);

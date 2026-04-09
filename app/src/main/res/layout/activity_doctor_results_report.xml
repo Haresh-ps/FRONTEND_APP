@@ -40,9 +40,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_report"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_export"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/layout_bottom_actions"
         app:layout_constraintTop_toBottomOf="@id/layout_header">
 
         <LinearLayout
@@ -50,6 +52,46 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
+            <!-- Report Header / Branding (Compact Version) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_logo_metrix" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Embryo Metrix"
+                    android:textColor="#1E293B"
+                    android:textSize="18sp"
+                    android:letterSpacing="0.01" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="ADVANCED CLINICAL AI"
+                    android:textColor="#64748B"
+                    android:textSize="8sp"
+                    android:letterSpacing="0.2" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1.5dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#4F46E5" />
+            </LinearLayout>
 
             <!-- Patient Information -->
             <androidx.cardview.widget.CardView
@@ -209,6 +251,7 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/tv_glucose_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -219,6 +262,7 @@
                     </RelativeLayout>
 
                     <ProgressBar
+                        android:id="@+id/pb_glucose"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
@@ -257,6 +301,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tv_amino_acids"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -289,6 +334,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tv_vitamins"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -352,6 +398,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tv_lactate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-black"
@@ -391,6 +438,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tv_ammonia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-black"
@@ -429,6 +477,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tv_urea"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-black"
@@ -503,6 +552,7 @@
                                 android:fontFamily="sans-serif-black" />
 
                             <TextView
+                                android:id="@+id/tv_oxygen_uptake"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
@@ -527,6 +577,7 @@
                                 android:fontFamily="sans-serif-black" />
 
                             <TextView
+                                android:id="@+id/tv_co2_release"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
@@ -556,6 +607,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_ph_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -604,6 +656,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tv_total_confidence"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-black"
@@ -612,6 +665,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
+                                android:id="@+id/tv_confidence_tag"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -665,6 +719,7 @@
                                 app:tint="#1E40AF" />
 
                             <TextView
+                                android:id="@+id/tv_report_activity_level"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
@@ -714,6 +769,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_ai_insights_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
@@ -727,18 +783,46 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/btn_export"
+    <LinearLayout
+        android:id="@+id/layout_bottom_actions"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="#54A5E4"
-        android:text="Export Report"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-black"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_export"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:backgroundTint="#54A5E4"
+            android:fontFamily="sans-serif-black"
+            android:text="Export Report"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_share"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="12dp"
+            android:backgroundTint="#25D366"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_share"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="24dp"
+            app:iconTint="@color/white" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

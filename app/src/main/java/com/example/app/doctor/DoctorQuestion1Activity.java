@@ -29,9 +29,11 @@ public class DoctorQuestion1Activity extends AppCompatActivity {
         findViewById(R.id.btn_back_bottom).setOnClickListener(v -> finish());
         
         findViewById(R.id.btn_next).setOnClickListener(v -> {
-            if (!selectedOption.isEmpty()) {
-                DoctorAssessmentData.getInstance().setEmbryoDay(selectedOption);
+            if (selectedOption.isEmpty()) {
+                android.widget.Toast.makeText(this, "Please select an option to continue", android.widget.Toast.LENGTH_SHORT).show();
+                return;
             }
+            DoctorAssessmentData.getInstance().setEmbryoDay(selectedOption);
             Intent intent = new Intent(this, DoctorQuestion2Activity.class);
             startActivity(intent);
         });

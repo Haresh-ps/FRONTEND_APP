@@ -51,39 +51,41 @@
         android:progressDrawable="@drawable/custom_progress_bar"
         app:layout_constraintTop_toBottomOf="@id/tv_question_count" />
 
-    <TextView
-        android:id="@+id/tv_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Observed pH deviation"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@id/progress_bar" />
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/btn_back_bottom"
-        app:layout_constraintTop_toBottomOf="@id/tv_question">
+        app:layout_constraintTop_toBottomOf="@id/progress_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Observed pH deviation"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
             <!-- Option Normal -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_normal"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                android:foreground="@drawable/bg_option_card_professional">
+                app:cardElevation="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="0dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -95,39 +97,34 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/normal" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|start"
-                        android:layout_margin="16dp"
+                        android:layout_gravity="center"
                         android:fontFamily="sans-serif-black"
                         android:text="Normal"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/btn_select_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom|end"
-                        android:layout_margin="16dp"
-                        android:backgroundTint="#54A5E4"
-                        android:text="Select"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        app:cornerRadius="8dp" />
+                        android:textSize="24sp" />
                 </FrameLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Option Slight -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_slight"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="140dp"
+                android:layout_marginBottom="12dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                android:foreground="@drawable/bg_option_card_professional">
+                app:cardElevation="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="0dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -139,39 +136,34 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/slight" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|start"
-                        android:layout_margin="16dp"
+                        android:layout_gravity="center"
                         android:fontFamily="sans-serif-black"
                         android:text="Slight"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/btn_select_slight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom|end"
-                        android:layout_margin="16dp"
-                        android:backgroundTint="#54A5E4"
-                        android:text="Select"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        app:cornerRadius="8dp" />
+                        android:textSize="24sp" />
                 </FrameLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Option High -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_high"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="140dp"
+                android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                android:foreground="@drawable/bg_option_card_professional">
+                app:cardElevation="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="0dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -183,32 +175,60 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/hihh" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|start"
-                        android:layout_margin="16dp"
+                        android:layout_gravity="center"
                         android:fontFamily="sans-serif-black"
                         android:text="High"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/btn_select_high"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom|end"
-                        android:layout_margin="16dp"
-                        android:backgroundTint="#54A5E4"
-                        android:text="Select"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        app:cornerRadius="8dp" />
+                        android:textSize="24sp" />
                 </FrameLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Additional Notes"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_notes_display"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tap to add or edit notes..."
+                        android:textColor="#64748B"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btn_back_bottom"

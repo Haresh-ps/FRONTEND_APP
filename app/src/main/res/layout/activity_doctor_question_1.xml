@@ -11,6 +11,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +40,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/btn_back" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -53,13 +54,15 @@
 
     <TextView
         android:id="@+id/tv_question"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-black"
         android:text="Embryo development day"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_bar" />
 
     <LinearLayout
@@ -125,7 +128,7 @@
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:backgroundTint="#54A5E4"
+        android:backgroundTint="#4F46E5"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="@color/white"

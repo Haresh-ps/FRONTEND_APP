@@ -33,9 +33,11 @@ public class DoctorQuestion3Activity extends AppCompatActivity {
         findViewById(R.id.btn_back_bottom).setOnClickListener(v -> finish());
         
         findViewById(R.id.btn_next).setOnClickListener(v -> {
-            if (!selectedOption.isEmpty()) {
-                DoctorAssessmentData.getInstance().setQuestionAnswer("culture_medium", selectedOption);
+            if (selectedOption.isEmpty()) {
+                android.widget.Toast.makeText(this, "Please select an option to continue", android.widget.Toast.LENGTH_SHORT).show();
+                return;
             }
+            DoctorAssessmentData.getInstance().setQuestionAnswer("culture_medium", selectedOption);
             Intent intent = new Intent(this, DoctorQuestion4Activity.class);
             startActivity(intent);
         });

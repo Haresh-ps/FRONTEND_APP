@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- North/South/East/West Connectors (Blue) -->
+    <path
+        android:pathData="M50,15 L50,85 M15,50 L85,50"
+        android:strokeWidth="1.5"
+        android:strokeColor="#4F86F7" />
+
+    <!-- Top Blue Arc (Outer) -->
+    <path
+        android:pathData="M20,30 A45,45 0 0,1 80,30"
+        android:strokeWidth="2.5"
+        android:strokeColor="#4F86F7"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+
+    <!-- Central Blue Body -->
+    <path
+        android:pathData="M50,50 m-16,0 a16,16 0 1,1 32,0 a16,16 0 1,1 -32,0"
+        android:fillColor="#4F86F7" />
+
+    <!-- AI Nucleus Core (White) -->
+    <path
+        android:pathData="M50,50 m-6.5,0 a6.5,6.5 0 1,1 13,0 a6.5,6.5 0 1,1 -13,0"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Cyan Data Orbits -->
+    <!-- Quadrant 1 (North-East) -->
+    <path
+        android:pathData="M50,22 A28,28 0 0,1 78,50"
+        android:strokeWidth="4"
+        android:strokeColor="#73E5EB"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+    <path
+        android:pathData="M50,22 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:fillColor="#73E5EB" />
+
+    <!-- Quadrant 2 (East-South) -->
+    <path
+        android:pathData="M78,50 A28,28 0 0,1 50,78"
+        android:strokeWidth="4"
+        android:strokeColor="#73E5EB"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+    <path
+        android:pathData="M78,50 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:fillColor="#73E5EB" />
+
+    <!-- Quadrant 3 (South-West) -->
+    <path
+        android:pathData="M50,78 A28,28 0 0,1 22,50"
+        android:strokeWidth="4"
+        android:strokeColor="#73E5EB"
+        android:strokeLineCap="round"
+        android:fillAlpha="0" />
+    <path
+        android:pathData="M50,78 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:fillColor="#73E5EB" />
+
+    <!-- Final endpoint node -->
+    <path
+        android:pathData="M22,50 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0"
+        android:fillColor="#73E5EB" />
+
+</vector>

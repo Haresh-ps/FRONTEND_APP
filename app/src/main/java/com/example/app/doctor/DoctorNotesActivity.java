@@ -13,14 +13,18 @@ public class DoctorNotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_notes);
 
         android.widget.EditText etNotes = findViewById(R.id.et_notes);
+        
+        // Pre-fill previously entered notes if any
+        String existingNotes = DoctorAssessmentData.getInstance().getQuestionAnswer("notes");
+        if (!existingNotes.isEmpty()) {
+            etNotes.setText(existingNotes);
+        }
 
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
         
         findViewById(R.id.btn_next_notes).setOnClickListener(v -> {
             String notes = etNotes.getText().toString();
-            if (!notes.isEmpty()) {
-                DoctorAssessmentData.getInstance().setQuestionAnswer("notes", notes);
-            }
+            DoctorAssessmentData.getInstance().setQuestionAnswer("notes", notes);
             Intent intent = new Intent(this, DoctorReviewActivity.class);
             startActivity(intent);
         });

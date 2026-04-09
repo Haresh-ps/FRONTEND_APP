@@ -85,23 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-black"
-            android:text="Build Number"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="1234567890"
-            android:textColor="#8BB28D"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="sans-serif-black"
             android:text="Build Date"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -111,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="2026-02-07"
+            android:text="16-03-2026"
             android:textColor="#8BB28D"
             android:textSize="14sp" />
 
@@ -123,7 +106,7 @@
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:paddingHorizontal="24dp"
-        android:text="Research &amp; Clinical Support: For research use only. Not for use in diagnostic procedures. Contact support@example.com for assistance."
+        android:text="Research &amp; Clinical Support: For research use only. Not for use in diagnostic procedures. Contact haresh772005@gmail.com for assistance."
         android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="sans-serif-medium"

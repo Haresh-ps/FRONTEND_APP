@@ -31,9 +31,11 @@ public class DoctorQuestion6Activity extends AppCompatActivity {
         findViewById(R.id.btn_back_bottom).setOnClickListener(v -> finish());
         
         findViewById(R.id.btn_next).setOnClickListener(v -> {
-            if (!selectedOption.isEmpty()) {
-                DoctorAssessmentData.getInstance().setQuestionAnswer("visual_clarity", selectedOption);
+            if (selectedOption.isEmpty()) {
+                android.widget.Toast.makeText(this, "Please select an option to continue", android.widget.Toast.LENGTH_SHORT).show();
+                return;
             }
+            DoctorAssessmentData.getInstance().setQuestionAnswer("visual_clarity", selectedOption);
             Intent intent = new Intent(this, DoctorNotesActivity.class);
             startActivity(intent);
         });

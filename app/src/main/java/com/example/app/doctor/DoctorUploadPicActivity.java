@@ -1,24 +1,29 @@
 package com.example.app.doctor;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.view.View;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.app.R;
 
 public class DoctorUploadPicActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private android.net.Uri imageUri;
-    private android.widget.ImageView ivPreview;
+    private Uri imageUri;
+    private TextView tvSelectedFileName;
+    private TextView tvNoPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_upload_pic);
 
-        ivPreview = findViewById(R.id.iv_preview); // Assuming there's an ImageView in layout? If not, ignore or add dynamic.
-        // Actually the layout XML wasn't shown fully, usually upload activities have a preview. 
-        // I will assume for now we just hold the URI.
+        tvSelectedFileName = findViewById(R.id.tv_selected_file_name);
+        tvNoPhoto = findViewById(R.id.tv_no_photo);
 
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
 
@@ -39,9 +44,43 @@ public class DoctorUploadPicActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
+            String fileName = getFileName(imageUri);
+            
+            if (fileName != null) {
+                tvSelectedFileName.setText("Selected: " + fileName);
+                tvSelectedFileName.setVisibility(View.VISIBLE);
+                tvNoPhoto.setText("Photo Selected");
+            }
+            
             android.widget.Toast.makeText(this, "Image Selected", android.widget.Toast.LENGTH_SHORT).show();
-            // Optional: ivPreview.setImageURI(imageUri);
         }
+    }
+
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (index != -1) {
+                        result = cursor.getString(index);
+                    }
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
     }
 
     private void uploadImage() {
@@ -87,11 +126,31 @@ public class DoctorUploadPicActivity extends AppCompatActivity {
                 public void onResponse(retrofit2.Call<MediaResponse> call, retrofit2.Response<MediaResponse> response) {
                     pd.dismiss();
                     if (response.isSuccessful()) {
-                        android.widget.Toast.makeText(DoctorUploadPicActivity.this, "Upload Successful!", android.widget.Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(DoctorUploadPicActivity.this, DoctorPicPreviewActivity.class); // Or next activity
+                        android.widget.Toast.makeText(DoctorUploadPicActivity.this, "AI Analysis: Image Verified!", android.widget.Toast.LENGTH_SHORT).show();
+                        DoctorAssessmentData.getInstance().setUploadedImageUri(imageUri.toString());
+                        Intent intent = new Intent(DoctorUploadPicActivity.this, DoctorPicPreviewActivity.class);
+                        intent.putExtra("image_uri", imageUri.toString());
                         startActivity(intent);
                     } else {
-                         android.widget.Toast.makeText(DoctorUploadPicActivity.this, "Upload Failed: " + response.message(), android.widget.Toast.LENGTH_SHORT).show();
+                        String errorMessage = "Upload Rejected by AI";
+                        try {
+                            String errorBody = response.errorBody().string();
+                            org.json.JSONObject jObjError = new org.json.JSONObject(errorBody);
+                            if (jObjError.has("error")) {
+                                errorMessage = jObjError.getString("error");
+                                if (jObjError.has("details")) {
+                                    errorMessage += "\n" + jObjError.getString("details");
+                                }
+                            }
+                        } catch (Exception e) {
+                            errorMessage = "Upload Failed: " + response.message();
+                        }
+                        
+                        new android.app.AlertDialog.Builder(DoctorUploadPicActivity.this)
+                            .setTitle("AI Image Analysis")
+                            .setMessage(errorMessage)
+                            .setPositiveButton("Try Again", null)
+                            .show();
                     }
                 }
 

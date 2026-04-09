@@ -4,14 +4,12 @@ plugins {
 
 android {
     namespace = "com.example.app"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.app"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -43,6 +41,9 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.gson)
+    implementation(libs.photoview)
+    implementation(libs.mpandroidchart)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

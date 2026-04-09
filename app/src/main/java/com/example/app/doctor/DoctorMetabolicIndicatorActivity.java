@@ -61,12 +61,18 @@ public class DoctorMetabolicIndicatorActivity extends AppCompatActivity {
         float pyruvate = 0.1f + (float)(Math.random() * 0.4);
         // Oxidative Stress: 1.0 - 10.0
         float stress = 1.0f + (float)(Math.random() * 9.0);
+        
+        // New markers
+        float oxygen = 7.0f + (float)(Math.random() * 3.0); // 7.0 - 10.0
+        float co2 = 8.0f + (float)(Math.random() * 4.0);    // 8.0 - 12.0
 
         DoctorAssessmentData data = DoctorAssessmentData.getInstance();
         data.setGlucoseLevel(glucose);
         data.setLactateLevel(lactate);
         data.setPyruvateLevel(pyruvate);
         data.setOxidativeStress(stress);
+        data.setOxygenUptake(oxygen);
+        data.setCo2Release(co2);
         
         // Send to Backend
         ApiService apiService = RetrofitClient.getApiService();
@@ -76,9 +82,24 @@ public class DoctorMetabolicIndicatorActivity extends AppCompatActivity {
             apiService.analyzeAssessment(data.getAssessmentId(), request).enqueue(new retrofit2.Callback<AnalysisResponse>() {
                 @Override
                 public void onResponse(retrofit2.Call<AnalysisResponse> call, retrofit2.Response<AnalysisResponse> response) {
-                   // Success - data saved and analyzed.
-                   // We don't need to do anything here strictly, results will be fetched in Results screens OR we can pass them.
-                   // Actually, usually results are fetched by ID.
+                    if (response.isSuccessful() && response.body() != null) {
+                        DoctorAssessmentData data = DoctorAssessmentData.getInstance();
+                        data.setConfidenceScore((float) response.body().confidenceScore);
+                        data.setViabilityPrediction(response.body().viabilityPrediction);
+                        data.setAiFeedback(response.body().aiFeedback);
+                        
+                        // Update with AI-calculated metabolic values
+                        data.setGlucoseLevel((float) response.body().glucoseLevel);
+                        data.setLactateLevel((float) response.body().lactateLevel);
+                        data.setPyruvateLevel((float) response.body().pyruvateLevel);
+                        data.setOxidativeStress((float) response.body().oxidativeStress);
+                        data.setAminoAcids(response.body().aminoAcids);
+                        data.setVitamins(response.body().vitamins);
+                        data.setAmmonia(response.body().ammonia);
+                        data.setPhChange((float) response.body().phChange);
+                        data.setOxygenUptake((float) response.body().oxygenUptake);
+                        data.setCo2Release((float) response.body().co2Release);
+                    }
                 }
 
                 @Override

@@ -15,6 +15,6 @@ public class DoctorAppInfoActivity extends AppCompatActivity {
         findViewById(R.id.iv_back).setOnClickListener(v -> finish());
 
         TextView tvBuildDate = findViewById(R.id.tv_build_date);
-        tvBuildDate.setText("2026-02-07");
+        tvBuildDate.setText("16-03-2026");
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Monochrome version using a single color for system tinting -->
+    <group
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:translateX="12.5"
+        android:translateY="12.5">
+
+        <!-- Outer structure -->
+        <path
+            android:pathData="M20,30 A45,45 0 0,1 80,30"
+            android:strokeWidth="3.5"
+            android:strokeColor="#000000"
+            android:strokeLineCap="round"
+            android:fillAlpha="0" />
+
+        <!-- Central Body -->
+        <path
+            android:pathData="M50,50 m-16,0 a16,16 0 1,1 32,0 a16,16 0 1,1 -32,0"
+            android:fillColor="#000000" />
+
+        <!-- Orbits (simplified for monochrome) -->
+        <path
+            android:pathData="M50,22 A28,28 0 0,1 78,50 A28,28 0 0,1 50,78 A28,28 0 0,1 22,50"
+            android:strokeWidth="5"
+            android:strokeColor="#000000"
+            android:strokeLineCap="round"
+            android:fillAlpha="0" />
+            
+        <!-- Nodes -->
+        <path
+            android:pathData="M50,22 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"
+            android:fillColor="#000000" />
+        <path
+            android:pathData="M78,50 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"
+            android:fillColor="#000000" />
+        <path
+            android:pathData="M50,78 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"
+            android:fillColor="#000000" />
+        <path
+            android:pathData="M22,50 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"
+            android:fillColor="#000000" />
+    </group>
+
+</vector>
